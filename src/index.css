@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "nicomoji";
+  src: url("./assets/fonts/Nico-Moji.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-nico: "nicomoji", sans-serif;
+}
