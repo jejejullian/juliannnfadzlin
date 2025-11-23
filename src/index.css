@@ -1,12 +1,35 @@
 @import "tailwindcss";
 
+/* Custom Font: Define Nico-Moji font */
 @font-face {
   font-family: "nicomoji";
   src: url("./assets/fonts/Nico-Moji.woff") format("woff");
   font-weight: normal;
   font-style: normal;
+  font-display: swap; 
 }
 
+/* Define custom font variable for Tailwind */
 @theme {
   --font-nico: "nicomoji", sans-serif;
+}
+
+/* Keyframes for sliding animation (left to right) */
+@keyframes slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%); 
+  }
+}
+
+/* Utility class for infinite sliding animation */
+@utility animate-slide-left-infinite {
+  animation: slide-left 20s linear infinite;
+}
+
+/* Utility class to pause the animation */
+@utility animation-pause {
+  animation-play-state: paused;
 }
