@@ -26,7 +26,7 @@ export default function TechStack() {
         <div className="animate-slide-left-infinite group-hover:animation-pause inline-block w-max">
           {/* Render All Logos for Infinite Scroll */}
           {duplicatedImages.map((src, index) => (
-            <img key={`logo-${index}`} className="mx-8 inline h-16" src={src} alt={`Logo ${index + 1}`} />
+            <img key={`logo-${index}`} className="mx-8 inline h-11 md:h-16" src={src} alt={`Logo ${index + 1}`} />
           ))}
         </div>
       </div>
