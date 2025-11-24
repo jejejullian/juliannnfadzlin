@@ -21,7 +21,7 @@ export default function About() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 md:pt-32 lg:pt-64 text-neutral-950 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-center pt-20 md:pt-32 lg:pt-64 text-neutral-950 overflow-hidden">
       <div className="w-full px-5 md:px-[60px] max-w-[1440px] mx-auto">
         {/* Header section with introduction text */}
         <div className="mb-6 md:mb-16">
