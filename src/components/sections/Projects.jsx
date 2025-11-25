@@ -54,7 +54,7 @@ export default function Projects() {
   };
 
   return (
-    <section className="px-5 md:px-[60px] mt-32 lg:mt-64 pb-32 lg:pb-64">
+    <section id="project" className="px-5 md:px-[60px] mt-32 lg:mt-64 pb-32 lg:pb-64">
       <div
         className="flex flex-col lg:flex-row gap-4 md:gap-8
        lg:gap-36"
