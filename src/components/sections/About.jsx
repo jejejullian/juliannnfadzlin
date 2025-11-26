@@ -17,8 +17,8 @@ export default function About() {
       {
         title: "Front-End Developer",
         company: "PT. Niki Akurasi Persada",
-        period: "2023 - Present",
-        description: ["Developed company profile website using HTML, CSS, and Bootstrap", "Collaborated with design team for responsive layouts", "Improved website performance by 40%"],
+        period: "2023",
+        description: ["Developed company profile website using HTML, Bootstrap, and Javascript", "Collaborated with design team for responsive layouts", "Performed iterative testing and debugging to enhance user experience and functionality"],
       },
       {
         title: "Web Developer Intern",
@@ -120,7 +120,7 @@ export default function About() {
             {/* Header Modal */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 md:px-8 py-4 flex items-center justify-between rounded-t-3xl">
               <h2 className="text-2xl md:text-3xl font-bold">My Resume</h2>
-              <button onClick={() => setShowResumeModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Close modal">
+              <button onClick={() => setShowResumeModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="Close modal">
                 <X size={24} />
               </button>
             </div>
