@@ -82,7 +82,7 @@ export default function Projects() {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
                     {project.icons.map((icon, iconIndex) => (
-                      <img key={iconIndex} src={icon} alt={`tech-icon-${iconIndex}`} className="w-3 md:w-5 lg:w-7 h-3 md:h-5 lg:h-7 object-contain" />
+                      <img key={iconIndex} src={icon} alt={`tech-icon-${iconIndex}`} className="w-4 md:w-5 lg:w-7 h-4 md:h-5 lg:h-7 object-contain" />
                     ))}
                   </div>
                   <p className="text-xs md:text-lg lg:text-xl leading-3 text-right capitalize">{project.desc}</p>
