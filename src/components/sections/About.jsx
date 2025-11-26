@@ -23,7 +23,7 @@ export default function About() {
       {
         title: "Web Developer Intern",
         company: "Yadika Institution",
-        period: "2024",
+        period: "2023",
         description: ["Built inventory management system using PHP and JavaScript", "Implemented CRUD operations with MySQL database", "Created user-friendly interfaces with Bootstrap"],
       },
     ],
