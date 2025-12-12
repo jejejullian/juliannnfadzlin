@@ -1,46 +1,13 @@
 import { useState } from "react";
-import { X, Download, Briefcase, Code } from "react-feather";
-import profile1 from "../../assets/image/profile1.jpeg";
-import profile2 from "../../assets/image/profile2.jpeg";
-import profile3 from "../../assets/image/profile3.jpeg";
+import ResumeModal from "../ui/ResumeModal"; 
+import { profileImages, resumeData } from "../../data"; 
 
 export default function About() {
-  // Default: profile 2 is large
   const [hoveredImage, setHoveredImage] = useState(2);
-
   
   const [showResumeModal, setShowResumeModal] = useState(false);
 
-  // Data resume
-  const resumeData = {
-    experiences: [
-      {
-        title: "Front-End Developer",
-        company: "PT. Niki Akurasi Persada",
-        period: "2023",
-        description: ["Developed company profile website using HTML, Bootstrap, and Javascript", "Collaborated with design team for responsive layouts", "Performed iterative testing and debugging to enhance user experience and functionality"],
-      },
-      {
-        title: "Web Developer Intern",
-        company: "Yadika Institution",
-        period: "2023",
-        description: ["Built inventory management system using PHP and JavaScript", "Implemented CRUD operations with MySQL database", "Created user-friendly interfaces with Bootstrap"],
-      },
-    ],
-    education: [
-      {
-        degree: "Bachelor of Computer Science",
-        school: "Mercubuana University",
-        period: "2021 - 2025",
-        gpa: "3.8/4.0",
-      },
-    ],
-    skills: {
-      "Front-End": ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Bootstrap"],
-      "Back-End": ["PHP", "Node.js"],
-      Tools: ["Git", "Postman", "My-SQL" ,"VS Code"],
-    },
-  };
+  const [profile1, profile2, profile3] = profileImages;
 
   const getImageSize = (imageIndex) => {
     const isHovered = hoveredImage === imageIndex;
@@ -60,9 +27,9 @@ export default function About() {
         {/* Header section */}
         <div className="mb-6 md:mb-16">
           <p className="text-sm md:text-xl text-center">Hi, I'm</p>
-          <h1 className="text-center text-4xl md:text-6xl font-bold mb-3 md:mb-8">Julian Nur Fadzlin</h1>
-          <p className="text-center text-sm md:text-xl font-normal mb-3 md:mb-8">I design in code as a front-end developer.</p>
-          <p className="max-w-[340px] md:max-w-[440px] mx-auto text-center text-sm md:text-xl mb-3 md:mb-8 font-bold">I'm passionate about building interfaces that work—and feel—just right.</p>
+          <h1 className="text-center text-4xl md:text-6xl font-bold mb-3 md:mb-8">{resumeData.header.name}</h1>
+          <p className="text-center text-sm md:text-xl font-normal mb-3 md:mb-8">{resumeData.header.intro}</p>
+          <p className="max-w-[340px] md:max-w-[440px] mx-auto text-center text-sm md:text-xl mb-3 md:mb-8 font-bold">{resumeData.header.subIntro}</p>
           <p className="text-center text-sm md:text-lg lg:text-xl">
             Want to know more?{" "}
             <button
@@ -113,95 +80,9 @@ export default function About() {
         </div>
       </div>
 
-      {/* RESUME MODAL */}
+      {/* RESUME MODAL  */}
       {showResumeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn" onClick={() => setShowResumeModal(false)}>
-          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto shadow-2xl animate-slideUp" onClick={(e) => e.stopPropagation()}>
-            {/* Header Modal */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 md:px-8 py-4 flex items-center justify-between rounded-t-3xl">
-              <h2 className="text-2xl md:text-3xl font-bold">My Resume</h2>
-              <button onClick={() => setShowResumeModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="Close modal">
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Content Modal */}
-            <div className="px-6 md:px-8 py-6 space-y-8">
-              {/* EXPERIENCE SECTION */}
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Briefcase size={24} className="text-neutral-950" />
-                  <h3 className="text-xl md:text-2xl font-bold">Experience</h3>
-                </div>
-                <div className="space-y-6">
-                  {resumeData.experiences.map((exp, index) => (
-                    <div key={index} className="border-l-2 border-neutral-950 pl-4">
-                      <h4 className="text-lg font-bold">{exp.title}</h4>
-                      <p className="text-sm text-gray-600 mb-2">
-                        {exp.company} • {exp.period}
-                      </p>
-                      <ul className="list-disc list-inside text-sm space-y-1">
-                        {exp.description.map((desc, idx) => (
-                          <li key={idx} className="text-gray-700">
-                            {desc}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* EDUCATION SECTION */}
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold">Education</h3>
-                </div>
-                <div className="space-y-4">
-                  {resumeData.education.map((edu, index) => (
-                    <div key={index} className="border-l-2 border-neutral-950 pl-4">
-                      <h4 className="text-lg font-bold">{edu.degree}</h4>
-                      <p className="text-sm text-gray-600">
-                        {edu.school} • {edu.period}
-                      </p>
-                      <p className="text-sm text-gray-700 mt-1">GPA: {edu.gpa}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* SKILLS SECTION */}
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Code size={24} className="text-neutral-950" />
-                  <h3 className="text-xl md:text-2xl font-bold">Skills</h3>
-                </div>
-                <div className="space-y-4">
-                  {Object.entries(resumeData.skills).map(([category, skills]) => (
-                    <div key={category}>
-                      <h4 className="font-bold text-sm mb-2 text-gray-600">{category}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {skills.map((skill) => (
-                          <span key={skill} className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-full text-sm font-medium transition-colors cursor-pointer">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Footer Modal - Download Button */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 md:px-8 py-4 rounded-b-3xl">
-              <a href="/CV_JULIAN_NUR_FADZLIN.pdf" download="Julian_Nur_Fadzlin_Resume.pdf" className="flex items-center justify-center gap-2 w-full px-6 py-2 lg:py-3 bg-neutral-950 text-sm md:text-lg lg:text-xl text-white rounded-full hover:bg-neutral-800 transition-colors font-medium">
-                <Download size={20} />
-                Download PDF Resume
-              </a>
-            </div>
-          </div>
-        </div>
+        <ResumeModal onClose={() => setShowResumeModal(false)} />
       )}
     </section>
   );

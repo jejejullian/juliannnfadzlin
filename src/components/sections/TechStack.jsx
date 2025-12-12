@@ -1,19 +1,7 @@
-import html from "../../assets/icon/html.png";
-import css from "../../assets/icon/css.png";
-import tailwind from "../../assets/icon/tailwind.png";
-import bootstrap from "../../assets/icon/bootstrap.png";
-import sass from "../../assets/icon/sass.png";
-import javasript from "../../assets/icon/js.png";
-import react from "../../assets/icon/reactjs.png";
-import php from "../../assets/icon/php.png";
-import xampp from "../../assets/icon/xampp.png";
-import mysql from "../../assets/icon/mysql.png";
-import git from "../../assets/icon/git.png";
-import postman from "../../assets/icon/postman.png";
+import { techStackIcons } from "../../data";
 
 export default function TechStack() {
-  // Array of tech stack icons to display in the carousel
-  const images = [html, css, tailwind, bootstrap, sass, javasript, react, php, xampp, mysql, git, postman];
+  const images = techStackIcons;
 
   // Duplicate the array for an infinite scrolling effect
   const duplicatedImages = [...images, ...images];

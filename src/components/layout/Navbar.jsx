@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "react-feather";
+import { navLinks } from "../../data"; 
 
 export default function Navbar() {
   // State to manage mobile menu toggle
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
-
-  // Menu items for navigation
-  const menuItems = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Project", href: "#project" },
-    { label: "Contact", href: "#contact" },
-  ];
 
   // Close mobile menu when a menu item is clicked
   const handleMenuClick = () => {
@@ -36,7 +29,8 @@ export default function Navbar() {
           {/* Desktop Nav Links: Visible only on medium and larger screens */}
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center space-x-8 lg:space-x-16 text-xl">
-              {menuItems.map((item) => (
+              {/* Mapping dari data navLinks, bukan hardcode */}
+              {navLinks.map((item) => (
                 <li key={item.label}>
                   <a className="text-slate-50 transition hover:text-slate-50/75" href={item.href}>
                     {item.label}
@@ -69,7 +63,7 @@ export default function Navbar() {
           <nav className="w-full">
             {/* Menu Items for Mobile */}
             <ul className="flex flex-col items-center gap-2 text-center text-xl font-medium text-slate-50">
-              {menuItems.map((item) => (
+              {navLinks.map((item) => (
                 <li key={item.label} className="w-full py-2 focus:bg-black/10 active:bg-black/10 rounded-lg">
                   <a href={item.href} onClick={handleMenuClick} className="transition duration-300 hover:text-slate-50/75 font-normal focus:outline-none">
                     {item.label}

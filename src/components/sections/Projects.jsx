@@ -1,48 +1,11 @@
 import { useState } from "react";
-import html from "../../assets/icon/html.png";
-import css from "../../assets/icon/css.png";
-import bootstrap from "../../assets/icon/bootstrap.png";
-import javascript from "../../assets/icon/js.png";
-import php from "../../assets/icon/php.png";
-import tailwind from "../../assets/icon/tailwind.png";
-import niki from "../../assets/image/project1.png";
-import yadika from "../../assets/image/project2.png";
-import forecazt from "../../assets/image/project3.png";
+import { projectsData } from "../../data"; 
 
 export default function Projects() {
   // State for tracking which project is open in the accordion
   const [openProjects, setOpenProject] = useState(null);
 
-  // Array of project data
-  const projects = [
-    {
-      id: 1,
-      title: "PT. Niki Akurasi Persada",
-      year: "2023",
-      desc: "Company Profile",
-      icons: [html, css, bootstrap],
-      image: niki,
-      link: "https://niki-akurasi-persada.vercel.app/",
-    },
-    {
-      id: 2,
-      title: "Yadika's Inventory",
-      year: "2024",
-      desc: "Management System",
-      icons: [php, javascript, bootstrap],
-      image: yadika,
-      link: null,
-    },
-    {
-      id: 3,
-      title: "Forecazt",
-      year: "2025",
-      desc: "weather app",
-      icons: [html, javascript, tailwind],
-      image: forecazt,
-      link: "https://weatherapp-odin-project.vercel.app/",
-    },
-  ];
+  const projects = projectsData;
 
   // Function to toggle project details visibility
   const toggleProject = (projectId) => {
@@ -55,10 +18,7 @@ export default function Projects() {
 
   return (
     <section id="project" className="px-5 md:px-[60px] mt-32 lg:mt-64 pb-32 lg:pb-64">
-      <div
-        className="flex flex-col lg:flex-row gap-4 md:gap-8
-       lg:gap-36"
-      >
+      <div className="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-36">
         {/* LEFT: Sticky Heading */}
         <div className="lg:w-8/12">
           <div className="lg:sticky lg:top-96 2xl:top-auto">
@@ -81,6 +41,7 @@ export default function Projects() {
                 {/* Row 2: Icons & Description */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
+                    {/* Menggunakan map untuk icons */}
                     {project.icons.map((icon, iconIndex) => (
                       <img key={iconIndex} src={icon} alt={`tech-icon-${iconIndex}`} className="w-4 md:w-5 lg:w-7 h-4 md:h-5 lg:h-7 object-contain" />
                     ))}
