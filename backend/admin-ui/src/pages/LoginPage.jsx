@@ -19,7 +19,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-bg flex items-center justify-center px-4">
       {/* Background subtle grid */}
       <div
         className="fixed inset-0 opacity-[0.03] pointer-events-none"
@@ -33,12 +33,12 @@ export default function LoginPage() {
         {/* Logo / Brand */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#ededed] mb-5">
-            <span className="text-[#0a0a0a] font-black text-xl">JF</span>
+            <span className="text-bg font-black text-xl">JF</span>
           </div>
           <h1 className="text-2xl font-bold text-[#ededed] tracking-tight">
             Portfolio Admin
           </h1>
-          <p className="text-sm text-[#737373] mt-1">
+          <p className="text-sm text-muted mt-1">
             Masuk untuk mengelola project
           </p>
         </div>
@@ -47,20 +47,20 @@ export default function LoginPage() {
         <div
           className="rounded-2xl p-8"
           style={{
-            background: "#141414",
-            border: "1px solid #2a2a2a",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
           }}
         >
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Password Field */}
             <div>
-              <label className="block text-xs font-medium text-[#737373] uppercase tracking-widest mb-2">
+              <label className="block text-xs font-medium text-muted uppercase tracking-widest mb-2">
                 Admin Password
               </label>
               <div className="relative">
                 <FiLock
                   size={15}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#737373]"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"
                 />
                 <input
                   id="admin-password"
@@ -72,10 +72,10 @@ export default function LoginPage() {
                   }}
                   placeholder="Masukkan password..."
                   autoComplete="current-password"
-                  className="w-full pl-10 pr-12 py-3 rounded-xl text-sm text-[#ededed] placeholder-[#737373] outline-none transition-all duration-200"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl text-sm text-[#ededed] placeholder-muted outline-none transition-all duration-200"
                   style={{
-                    background: "#1c1c1c",
-                    border: error ? "1px solid #ef4444" : "1px solid #2a2a2a",
+                    background: "var(--color-surface-2)",
+                    border: error ? "1px solid var(--color-danger)" : "1px solid var(--color-border)",
                   }}
                   onFocus={(e) => {
                     if (!error)
@@ -92,7 +92,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPass((v) => !v)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#737373] hover:text-[#ededed] transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-[#ededed] transition-colors"
                 >
                   {showPass ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                 </button>
@@ -112,10 +112,10 @@ export default function LoginPage() {
               className="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
               style={{
                 background:
-                  loading || !password.trim() ? "#1c1c1c" : "#ededed",
+                  loading || !password.trim() ? "var(--color-surface-2)" : "var(--color-accent)",
                 color:
-                  loading || !password.trim() ? "#737373" : "#0a0a0a",
-                border: "1px solid #2a2a2a",
+                  loading || !password.trim() ? "var(--color-muted)" : "var(--color-bg)",
+                border: "1px solid var(--color-border)",
               }}
               onMouseEnter={(e) => {
                 if (!loading && password.trim())
@@ -140,7 +140,7 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-[#2a2a2a] mt-6">
+        <p className="text-center text-xs text-border mt-6">
           Julian Nur Fadzlin — Portfolio CMS
         </p>
       </div>

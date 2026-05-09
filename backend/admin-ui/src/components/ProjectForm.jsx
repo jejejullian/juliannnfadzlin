@@ -261,10 +261,10 @@ export default function ProjectForm({ initialData, onSubmit, onCancel, loading }
             }}
           >
             <FiUploadCloud size={28} className={dragOver ? "text-[#ededed]" : "text-[#555]"} />
-            <p className="text-sm text-[#737373]">
+            <p className="text-sm text-muted">
               {dragOver ? "Lepaskan untuk upload..." : "Drag & drop atau klik untuk pilih"}
             </p>
-            <p className="text-xs text-[#555]">JPG, PNG, WebP, GIF — maks. <strong className="text-[#737373]">5 MB</strong></p>
+            <p className="text-xs text-[#555]">JPG, PNG, WebP, GIF — maks. <strong className="text-muted">5 MB</strong></p>
           </div>
         )}
 
@@ -330,7 +330,7 @@ export default function ProjectForm({ initialData, onSubmit, onCancel, loading }
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="flex-1 py-3 rounded-xl text-sm font-medium text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
+            className="flex-1 py-3 rounded-xl text-sm font-medium text-muted hover:text-[#ededed] transition-colors cursor-pointer"
             style={{ background: "#1c1c1c", border: "1px solid #2a2a2a" }}
           >
             Batal

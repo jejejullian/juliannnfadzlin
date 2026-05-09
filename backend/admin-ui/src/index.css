@@ -94,3 +94,13 @@ body {
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
+@utility bg-bg { background-color: var(--color-bg); }
+@utility text-bg { color: var(--color-bg); }
+@utility text-muted { color: var(--color-muted); }
+@utility border-border { border-color: var(--color-border); }
+@utility text-border { color: var(--color-border); }
+@utility placeholder-muted { color: var(--color-muted); }
+@utility text-accent { color: var(--color-accent); }
+@utility bg-surface { background-color: var(--color-surface); }
+@utility border-surface { border-color: var(--color-surface); }
+@utility bg-surface-2 { background-color: var(--color-surface-2); }

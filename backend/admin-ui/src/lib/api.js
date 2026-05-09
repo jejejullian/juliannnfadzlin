@@ -1,34 +1,20 @@
-// ============================================================
-// src/lib/api.js
-// Axios instance — semua request ke backend melalui file ini
-// ============================================================
+import { createClient } from '@supabase/supabase-js';
 
-// ⚠️ SUPABASE/DEPLOY STEP:
-// Ubah BASE_URL ke URL backend Anda saat sudah live
-// Contoh: "https://your-backend.railway.app"
-// Saat development lokal: tetap "http://localhost:5000"
+// Ambil URL dan Key dari Environment Variable Vercel
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-// Helper: ambil token dari localStorage
-const getToken = () => localStorage.getItem("admin_token");
-
-// Helper: buat headers dengan Authorization
-const authHeaders = () => ({
-  Authorization: `Bearer ${getToken()}`,
-});
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // -------------------------------------------------------
-// AUTH
+// AUTH (Menggunakan Supabase Auth)
 // -------------------------------------------------------
-export const loginApi = async (password) => {
-  const res = await fetch(`${BASE_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password }),
+export const loginApi = async (email, password) => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Login gagal");
+  if (error) throw new Error(error.message);
   return data;
 };
 
@@ -36,37 +22,39 @@ export const loginApi = async (password) => {
 // PROJECTS - GET ALL
 // -------------------------------------------------------
 export const fetchProjects = async () => {
-  const res = await fetch(`${BASE_URL}/api/projects`);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Gagal mengambil project");
+  const { data, error } = await supabase
+    .from('Project') // Pastikan nama tabel sesuai di Supabase (besar/kecil huruf berpengaruh)
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw new Error(error.message);
   return data;
 };
 
 // -------------------------------------------------------
-// PROJECTS - CREATE (FormData untuk upload gambar)
+// PROJECTS - CREATE
 // -------------------------------------------------------
-export const createProject = async (formData) => {
-  const res = await fetch(`${BASE_URL}/api/projects`, {
-    method: "POST",
-    headers: authHeaders(), // Tidak set Content-Type agar browser atur boundary
-    body: formData,
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Gagal membuat project");
+export const createProject = async (projectData) => {
+  const { data, error } = await supabase
+    .from('Project')
+    .insert([projectData])
+    .select();
+
+  if (error) throw new Error(error.message);
   return data;
 };
 
 // -------------------------------------------------------
 // PROJECTS - UPDATE
 // -------------------------------------------------------
-export const updateProject = async (id, formData) => {
-  const res = await fetch(`${BASE_URL}/api/projects/${id}`, {
-    method: "PUT",
-    headers: authHeaders(),
-    body: formData,
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Gagal mengupdate project");
+export const updateProject = async (id, updateData) => {
+  const { data, error } = await supabase
+    .from('Project')
+    .update(updateData)
+    .eq('id', id)
+    .select();
+
+  if (error) throw new Error(error.message);
   return data;
 };
 
@@ -74,11 +62,11 @@ export const updateProject = async (id, formData) => {
 // PROJECTS - DELETE
 // -------------------------------------------------------
 export const deleteProject = async (id) => {
-  const res = await fetch(`${BASE_URL}/api/projects/${id}`, {
-    method: "DELETE",
-    headers: { ...authHeaders(), "Content-Type": "application/json" },
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Gagal menghapus project");
-  return data;
+  const { error } = await supabase
+    .from('Project')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw new Error(error.message);
+  return true;
 };

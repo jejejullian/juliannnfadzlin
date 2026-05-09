@@ -104,15 +104,15 @@ export default function DashboardPage({ setActivePage, showToast }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl md:text-2xl font-bold text-[#ededed]">Dashboard</h1>
-          <p className="text-sm text-[#737373] mt-0.5">Kelola semua project portfolio</p>
+          <p className="text-sm text-muted mt-0.5">Kelola semua project portfolio</p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={loadProjects}
             disabled={loading}
             title="Refresh"
-            className="p-2.5 rounded-xl text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
-            style={{ background: "#1c1c1c", border: "1px solid #2a2a2a" }}
+            className="p-2.5 rounded-xl text-muted hover:text-[#ededed] transition-colors cursor-pointer"
+            style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}
           >
             <FiRefreshCw size={16} className={loading ? "animate-spin-slow" : ""} />
           </button>
@@ -148,15 +148,15 @@ export default function DashboardPage({ setActivePage, showToast }) {
           <div
             key={label}
             className="rounded-2xl p-5"
-            style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+            style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)" }}
           >
             <div className="flex items-start justify-between mb-3">
-              <p className="text-xs text-[#737373] font-medium">{label}</p>
+              <p className="text-xs text-muted font-medium">{label}</p>
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{ background: "rgba(237,237,237,0.06)" }}
               >
-                <Icon size={15} className="text-[#737373]" />
+                <Icon size={15} className="text-muted" />
               </div>
             </div>
             <p className="text-3xl font-black text-[#ededed]">{value}</p>
@@ -165,9 +165,9 @@ export default function DashboardPage({ setActivePage, showToast }) {
       </div>
 
       {/* ── Search + Table ── */}
-      <div className="rounded-2xl overflow-hidden" style={{ background: "#141414", border: "1px solid #2a2a2a" }}>
+      <div className="rounded-2xl overflow-hidden" style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
         {/* Search Bar */}
-        <div className="p-4 flex items-center gap-3" style={{ borderBottom: "1px solid #2a2a2a" }}>
+        <div className="p-4 flex items-center gap-3" style={{ borderBottom: "1px solid var(--color-border)" }}>
           <FiSearch size={15} className="text-[#555] shrink-0" />
           <input
             value={search}
@@ -185,11 +185,11 @@ export default function DashboardPage({ setActivePage, showToast }) {
         {/* Table */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-7 h-7 rounded-full border-2 border-[#2a2a2a] border-t-[#ededed] animate-spin-slow" />
+            <div className="w-7 h-7 rounded-full border-2 border-border border-t-[#ededed] animate-spin-slow" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
-            <FiLayers size={32} className="text-[#2a2a2a]" />
+            <FiLayers size={32} className="text-border" />
             <p className="text-sm text-[#555]">
               {search ? "Tidak ada project yang cocok." : "Belum ada project. Tambahkan yang pertama!"}
             </p>
@@ -198,7 +198,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ borderBottom: "1px solid #2a2a2a" }}>
+                <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
                   {["Gambar", "Judul", "Deskripsi", "Tech Stack", "Link", "Dibuat", "Aksi"].map((h) => (
                     <th
                       key={h}
@@ -215,14 +215,14 @@ export default function DashboardPage({ setActivePage, showToast }) {
                     key={p.id}
                     className="group transition-colors"
                     style={{
-                      borderBottom: i < filtered.length - 1 ? "1px solid #1c1c1c" : "none",
+                      borderBottom: i < filtered.length - 1 ? "1px solid var(--color-surface-2)" : "none",
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = "#1a1a1a")}
                     onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                   >
                     {/* Gambar */}
                     <td className="px-5 py-3">
-                      <div className="w-16 h-11 rounded-lg overflow-hidden shrink-0" style={{ background: "#1c1c1c" }}>
+                      <div className="w-16 h-11 rounded-lg overflow-hidden shrink-0" style={{ background: "var(--color-surface-2)" }}>
                         {p.image_url ? (
                           <img
                             src={p.image_url}
@@ -246,7 +246,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
 
                     {/* Deskripsi */}
                     <td className="px-5 py-3">
-                      <p className="text-[#737373] capitalize whitespace-nowrap max-w-[140px] truncate">
+                      <p className="text-muted capitalize whitespace-nowrap max-w-[140px] truncate">
                         {p.description}
                       </p>
                     </td>
@@ -258,7 +258,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
                           <span
                             key={t}
                             className="px-2 py-0.5 rounded-full text-xs text-[#a3a3a3] whitespace-nowrap"
-                            style={{ background: "rgba(237,237,237,0.06)", border: "1px solid #2a2a2a" }}
+                            style={{ background: "rgba(237,237,237,0.06)", border: "1px solid var(--color-border)" }}
                           >
                             {t.trim()}
                           </span>
@@ -279,7 +279,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
                             href={p.live_link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#737373] hover:text-[#ededed] transition-colors"
+                            className="text-muted hover:text-[#ededed] transition-colors"
                             title="Live Demo"
                           >
                             <FiExternalLink size={15} />
@@ -290,7 +290,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
                             href={p.github_link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#737373] hover:text-[#ededed] transition-colors"
+                            className="text-muted hover:text-[#ededed] transition-colors"
                             title="GitHub"
                           >
                             <FiGithub size={15} />
@@ -313,8 +313,8 @@ export default function DashboardPage({ setActivePage, showToast }) {
                         <button
                           id={`edit-btn-${p.id}`}
                           onClick={() => { setEditTarget(p); setShowEditModal(true); }}
-                          className="p-2 rounded-lg text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
-                          style={{ background: "rgba(237,237,237,0.04)", border: "1px solid #2a2a2a" }}
+                          className="p-2 rounded-lg text-muted hover:text-[#ededed] transition-colors cursor-pointer"
+                          style={{ background: "rgba(237,237,237,0.04)", border: "1px solid var(--color-border)" }}
                           title="Edit"
                         >
                           <FiEdit2 size={14} />
@@ -322,7 +322,7 @@ export default function DashboardPage({ setActivePage, showToast }) {
                         <button
                           id={`delete-btn-${p.id}`}
                           onClick={() => { setDeleteTarget(p); setShowDeleteModal(true); }}
-                          className="p-2 rounded-lg text-[#737373] hover:text-red-400 transition-colors cursor-pointer"
+                          className="p-2 rounded-lg text-muted hover:text-red-400 transition-colors cursor-pointer"
                           style={{ background: "rgba(239,68,68,0.04)", border: "1px solid rgba(239,68,68,0.15)" }}
                           title="Hapus"
                         >
@@ -347,14 +347,14 @@ export default function DashboardPage({ setActivePage, showToast }) {
         >
           <div
             className="w-full max-w-lg rounded-2xl p-6 my-auto animate-fade-up"
-            style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+            style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-base font-bold text-[#ededed]">Edit Project</h2>
               <button
                 onClick={() => !actionLoading && setShowEditModal(false)}
-                className="text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
+                className="text-muted hover:text-[#ededed] transition-colors cursor-pointer"
               >
                 <FiPlus size={20} className="rotate-45" />
               </button>

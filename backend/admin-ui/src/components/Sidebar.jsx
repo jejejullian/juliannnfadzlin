@@ -28,11 +28,11 @@ export default function Sidebar({ activePage, setActivePage }) {
         style={{ borderBottom: "1px solid #2a2a2a" }}
       >
         <div className="w-9 h-9 rounded-xl bg-[#ededed] flex items-center justify-center shrink-0">
-          <span className="text-[#0a0a0a] font-black text-xs">JF</span>
+          <span className="text-bg font-black text-xs">JF</span>
         </div>
         <div>
           <p className="text-sm font-bold text-[#ededed] leading-none">Portfolio CMS</p>
-          <p className="text-xs text-[#737373] mt-0.5">Admin Panel</p>
+          <p className="text-xs text-muted mt-0.5">Admin Panel</p>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ export default function Sidebar({ activePage, setActivePage }) {
           href="/"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[#737373] hover:text-[#ededed] transition-colors duration-200 mb-1 cursor-pointer"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted hover:text-[#ededed] transition-colors duration-200 mb-1 cursor-pointer"
         >
           <FiExternalLink size={16} />
           Lihat Portfolio
@@ -87,7 +87,7 @@ export default function Sidebar({ activePage, setActivePage }) {
         <button
           id="logout-btn"
           onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[#737373] hover:text-red-400 transition-colors duration-200 cursor-pointer"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted hover:text-red-400 transition-colors duration-200 cursor-pointer"
         >
           <FiLogOut size={16} />
           Logout

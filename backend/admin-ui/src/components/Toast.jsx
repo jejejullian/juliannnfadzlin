@@ -35,7 +35,7 @@ export default function Toast({ toast, onClose }) {
       <p className="text-sm text-[#ededed] flex-1">{toast.message}</p>
       <button
         onClick={onClose}
-        className="text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer shrink-0"
+        className="text-muted hover:text-[#ededed] transition-colors cursor-pointer shrink-0"
       >
         <FiX size={16} />
       </button>

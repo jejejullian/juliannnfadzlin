@@ -26,14 +26,14 @@ export default function ConfirmModal({ isOpen, title, message, onConfirm, onCanc
 
         {/* Content */}
         <h3 className="text-base font-bold text-[#ededed] mb-2">{title}</h3>
-        <p className="text-sm text-[#737373] leading-relaxed mb-6">{message}</p>
+        <p className="text-sm text-muted leading-relaxed mb-6">{message}</p>
 
         {/* Actions */}
         <div className="flex items-center gap-3">
           <button
             onClick={onCancel}
             disabled={loading}
-            className="flex-1 py-2.5 rounded-xl text-sm font-medium text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
+            className="flex-1 py-2.5 rounded-xl text-sm font-medium text-muted hover:text-[#ededed] transition-colors cursor-pointer"
             style={{ background: "#1c1c1c", border: "1px solid #2a2a2a" }}
           >
             Batal

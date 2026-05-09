@@ -28,7 +28,7 @@ function AdminApp() {
   const pageProps = { setActivePage, showToast };
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a]">
+    <div className="flex min-h-screen bg-bg">
       {/* Sidebar (Desktop) */}
       <Sidebar activePage={activePage} setActivePage={setActivePage} />
 

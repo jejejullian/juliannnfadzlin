@@ -30,21 +30,21 @@ export default function AddProjectPage({ setActivePage, showToast }) {
       <div className="flex items-center gap-4 mb-8">
         <button
           onClick={() => setActivePage("dashboard")}
-          className="p-2.5 rounded-xl text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
-          style={{ background: "#1c1c1c", border: "1px solid #2a2a2a" }}
+          className="p-2.5 rounded-xl text-muted hover:text-[#ededed] transition-colors cursor-pointer"
+          style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}
         >
           <FiArrowLeft size={16} />
         </button>
         <div>
           <h1 className="text-xl md:text-2xl font-bold text-[#ededed]">Tambah Project</h1>
-          <p className="text-sm text-[#737373] mt-0.5">Isi detail project baru untuk portofolio</p>
+          <p className="text-sm text-muted mt-0.5">Isi detail project baru untuk portofolio</p>
         </div>
       </div>
 
       {/* ── Form Card ── */}
       <div
         className="max-w-xl rounded-2xl p-6 md:p-8"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)" }}
       >
         <ProjectForm
           onSubmit={handleSubmit}

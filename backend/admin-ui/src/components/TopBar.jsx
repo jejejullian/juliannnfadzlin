@@ -25,13 +25,13 @@ export default function TopBar({ activePage, setActivePage }) {
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[#ededed] flex items-center justify-center">
-            <span className="text-[#0a0a0a] font-black text-xs">JF</span>
+            <span className="text-bg font-black text-xs">JF</span>
           </div>
           <span className="text-sm font-bold text-[#ededed]">Portfolio CMS</span>
         </div>
         <button
           onClick={() => setMobileOpen((v) => !v)}
-          className="p-2 rounded-lg text-[#737373] hover:text-[#ededed] transition-colors cursor-pointer"
+          className="p-2 rounded-lg text-muted hover:text-[#ededed] transition-colors cursor-pointer"
         >
           {mobileOpen ? <FiX size={20} /> : <FiMenu size={20} />}
         </button>
@@ -70,7 +70,7 @@ export default function TopBar({ activePage, setActivePage }) {
             <div className="px-3 pt-4" style={{ borderTop: "1px solid #2a2a2a" }}>
               <button
                 onClick={logout}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[#737373] hover:text-red-400 transition-colors cursor-pointer"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted hover:text-red-400 transition-colors cursor-pointer"
               >
                 <FiLogOut size={16} /> Logout
               </button>
