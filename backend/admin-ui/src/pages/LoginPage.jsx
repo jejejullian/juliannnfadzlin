@@ -1,0 +1,149 @@
+// ============================================================
+// src/pages/LoginPage.jsx
+// Halaman login admin — style sesuai portfolio (dark + minimal)
+// ============================================================
+
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+
+export default function LoginPage() {
+  const { login, loading, error, setError } = useAuth();
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!password.trim()) return;
+    await login(password);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-4">
+      {/* Background subtle grid */}
+      <div
+        className="fixed inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg,#ededed,#ededed 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,#ededed,#ededed 1px,transparent 1px,transparent 60px)",
+        }}
+      />
+
+      <div className="w-full max-w-sm animate-fade-up relative z-10">
+        {/* Logo / Brand */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#ededed] mb-5">
+            <span className="text-[#0a0a0a] font-black text-xl">JF</span>
+          </div>
+          <h1 className="text-2xl font-bold text-[#ededed] tracking-tight">
+            Portfolio Admin
+          </h1>
+          <p className="text-sm text-[#737373] mt-1">
+            Masuk untuk mengelola project
+          </p>
+        </div>
+
+        {/* Card */}
+        <div
+          className="rounded-2xl p-8"
+          style={{
+            background: "#141414",
+            border: "1px solid #2a2a2a",
+          }}
+        >
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Password Field */}
+            <div>
+              <label className="block text-xs font-medium text-[#737373] uppercase tracking-widest mb-2">
+                Admin Password
+              </label>
+              <div className="relative">
+                <FiLock
+                  size={15}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#737373]"
+                />
+                <input
+                  id="admin-password"
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (error) setError(null);
+                  }}
+                  placeholder="Masukkan password..."
+                  autoComplete="current-password"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl text-sm text-[#ededed] placeholder-[#737373] outline-none transition-all duration-200"
+                  style={{
+                    background: "#1c1c1c",
+                    border: error ? "1px solid #ef4444" : "1px solid #2a2a2a",
+                  }}
+                  onFocus={(e) => {
+                    if (!error)
+                      e.target.style.borderColor = "#ededed";
+                    e.target.style.boxShadow =
+                      "0 0 0 3px rgba(237,237,237,0.06)";
+                  }}
+                  onBlur={(e) => {
+                    if (!error)
+                      e.target.style.borderColor = "#2a2a2a";
+                    e.target.style.boxShadow = "none";
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#737373] hover:text-[#ededed] transition-colors"
+                >
+                  {showPass ? <FiEyeOff size={15} /> : <FiEye size={15} />}
+                </button>
+              </div>
+              {error && (
+                <p className="text-xs text-red-400 mt-2 flex items-center gap-1">
+                  <span>⚠</span> {error}
+                </p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <button
+              id="login-btn"
+              type="submit"
+              disabled={loading || !password.trim()}
+              className="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+              style={{
+                background:
+                  loading || !password.trim() ? "#1c1c1c" : "#ededed",
+                color:
+                  loading || !password.trim() ? "#737373" : "#0a0a0a",
+                border: "1px solid #2a2a2a",
+              }}
+              onMouseEnter={(e) => {
+                if (!loading && password.trim())
+                  e.currentTarget.style.background = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                if (!loading && password.trim())
+                  e.currentTarget.style.background = "#ededed";
+              }}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className="w-4 h-4 rounded-full border-2 border-current border-t-transparent animate-spin-slow"
+                  />
+                  Memverifikasi...
+                </>
+              ) : (
+                "Masuk ke Dashboard"
+              )}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-center text-xs text-[#2a2a2a] mt-6">
+          Julian Nur Fadzlin — Portfolio CMS
+        </p>
+      </div>
+    </div>
+  );
+}

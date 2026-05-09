@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Custom Font: Define Nico-Moji font */
+@font-face {
+  font-family: "nicomoji";
+  src: url("./assets/fonts/Nico-Moji.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; 
+}
+
+/* Define custom font variable for Tailwind */
+@theme {
+  --font-nico: "nicomoji", sans-serif;
+}
+
+/* Keyframes for sliding animation (left to right) */
+@keyframes slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%); 
+  }
+}
+
+/* Utility class for infinite sliding animation */
+@utility animate-slide-left-infinite {
+  animation: slide-left 20s linear infinite;
+}
+
+/* Utility class to pause the animation */
+@utility animation-pause {
+  animation-play-state: paused;
+}
+
+/* ===== Loading Screen Animations ===== */
+
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes subtitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Hero Entrance Animations ===== */
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@utility hero-reveal {
+  opacity: 0;
+  animation: hero-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@utility animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}

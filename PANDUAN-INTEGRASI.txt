@@ -1,0 +1,269 @@
+====================================================================
+   PANDUAN INTEGRASI LENGKAP
+   Backend (Express) → Supabase → Frontend (React)
+   Nama Proyek: Portfolio Julian Nur Fadzlin
+====================================================================
+
+Dokumen ini menjelaskan SEMUA langkah yang harus dilakukan untuk
+menghubungkan ketiga bagian sistem:
+  [1] Backend (Express + Prisma)      → folder: /backend
+  [2] Admin UI (React + Tailwind)     → folder: /backend/admin-ui
+  [3] Frontend Portfolio (React)      → folder: /frontend
+
+====================================================================
+BAGIAN 1: PERSIAPAN SUPABASE (Lakukan Ini Dulu!)
+====================================================================
+
+STEP 1.1 — Buat Project di Supabase
+-------------------------------------
+1. Buka https://supabase.com dan login
+2. Klik "New project"
+3. Isi nama project (contoh: "jeje-portfolio")
+4. Set password database — SIMPAN password ini!
+5. Pilih region terdekat (Singapore untuk Indonesia)
+6. Tunggu project selesai dibuat (~1 menit)
+
+
+STEP 1.2 — Ambil DATABASE_URL & DIRECT_URL
+---------------------------------------------
+Lokasi: Supabase Dashboard → Project Settings → Database → Connection String
+
+  TAB "Session" (atau "Node.js"):
+    → Copy → tempel ke DATABASE_URL di /backend/.env
+
+  TAB "Transaction":
+    → Copy → tempel ke DIRECT_URL di /backend/.env
+
+  FORMAT URL:
+  postgresql://postgres.[ref]:[PASSWORD]@aws-0-[region].pooler.supabase.com:[port]/postgres
+  
+  ⚠️ Ganti [PASSWORD] dengan password database Anda dari STEP 1.1
+
+
+STEP 1.3 — Ambil SUPABASE_URL & SUPABASE_SERVICE_ROLE_KEY
+-----------------------------------------------------------
+Lokasi: Supabase Dashboard → Project Settings → API
+
+  "Project URL":
+    → Copy → tempel ke SUPABASE_URL di /backend/.env
+    → Format: https://xxxxxxxxxxxxxx.supabase.co
+
+  "service_role" (di bawah Project API Keys, klik "Reveal"):
+    → Copy → tempel ke SUPABASE_SERVICE_ROLE_KEY di /backend/.env
+    ⚠️ SANGAT RAHASIA — jangan pernah commit ke GitHub!
+
+
+STEP 1.4 — Buat Storage Bucket untuk Gambar
+--------------------------------------------
+Lokasi: Supabase Dashboard → Storage → New Bucket
+
+  Nama bucket : project-images
+  Tipe        : ✅ Public (centang "Public bucket")
+  → Klik Save
+
+  ⚠️ Nama HARUS "project-images" (persis sama, huruf kecil, ada strip)
+     Jika ingin nama lain, ubah juga di:
+     /backend/middlewares/uploadMiddleware.js baris:
+       const BUCKET_NAME = "project-images";  ← ganti di sini
+
+
+====================================================================
+BAGIAN 2: KONFIGURASI FILE .ENV BACKEND
+====================================================================
+
+File: /backend/.env
+--------------------
+Buka file tersebut dan isi semua valuenya:
+
+  DATABASE_URL="postgresql://postgres.[ref]:[pass]@....supabase.com:6543/postgres"
+  DIRECT_URL="postgresql://postgres.[ref]:[pass]@....supabase.com:5432/postgres"
+  SUPABASE_URL="https://xxxxxxxxxxxxxx.supabase.co"
+  SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  JWT_SECRET="buat_string_acak_bebas_min_32_karakter_contoh_jeje2026xyz"
+  ADMIN_PASSWORD="password_untuk_login_admin_panel"
+  PORT=5000
+  FRONTEND_URL="http://localhost:5173"  ← ganti ke URL live saat deploy
+
+
+====================================================================
+BAGIAN 3: JALANKAN BACKEND (Di Terminal /backend)
+====================================================================
+
+Buka terminal, arahkan ke folder /backend:
+
+  cd "d:\project with react js\jeje-portofolio\backend"
+
+Lalu jalankan berurutan:
+
+  STEP 3.1 — Install semua library:
+    npm install
+
+  STEP 3.2 — Buat tabel di Supabase otomatis dari schema:
+    npx prisma db push
+
+    Jika berhasil, terminal akan tampil:
+    "Your database is now in sync with your Prisma schema."
+    
+    Untuk verifikasi, cek di Supabase → Table Editor
+    → Harus ada tabel "Project" dengan kolom:
+       id, title, description, tech_stack, image_url,
+       live_link, github_link, createdAt, updatedAt
+
+  STEP 3.3 — Jalankan server backend:
+    node server.js
+    
+    Atau mode development (auto-restart saat file berubah):
+    npm run dev
+
+    Jika berhasil:
+    ✅ Server berjalan di http://localhost:5000
+
+  STEP 3.4 — Test backend berjalan:
+    Buka browser → http://localhost:5000
+    Harus tampil:
+    {"status":"OK","message":"Portfolio Backend API is running 🚀"}
+
+
+====================================================================
+BAGIAN 4: JALANKAN ADMIN UI (Di Terminal /backend/admin-ui)
+====================================================================
+
+Buka terminal BARU, arahkan ke folder admin-ui:
+
+  cd "d:\project with react js\jeje-portofolio\backend\admin-ui"
+
+  STEP 4.1 — Pastikan .env sudah benar:
+    File: /backend/admin-ui/.env
+    Isi: VITE_API_URL=http://localhost:5000
+
+  STEP 4.2 — Jalankan admin UI:
+    npm run dev
+
+    Admin panel tersedia di: http://localhost:5174 (atau port lain)
+
+  STEP 4.3 — Login ke Admin Panel:
+    - Buka http://localhost:5174
+    - Masukkan ADMIN_PASSWORD (yang ada di /backend/.env)
+    - Anda akan masuk ke Dashboard
+
+  STEP 4.4 — Coba tambah project:
+    - Klik "Tambah Project"
+    - Isi semua field (Judul, Deskripsi, Tech Stack)
+    - Upload gambar (maks 5MB)
+    - Klik "Tambah Project"
+    
+    Jika berhasil:
+    ✅ Toast "Project berhasil ditambahkan! 🎉" muncul
+    ✅ Project muncul di tabel Dashboard
+    ✅ Gambar tersimpan di Supabase Storage → Bucket "project-images"
+    ✅ Data tersimpan di Supabase Database → Tabel "Project"
+
+
+====================================================================
+BAGIAN 5: HUBUNGKAN FRONTEND PORTFOLIO KE BACKEND
+====================================================================
+
+File yang sudah diubah: /frontend/src/components/sections/Projects.jsx
+  → Tidak lagi membaca data statis dari data/index.js
+  → Sekarang fetch dari API: GET /api/projects
+
+  STEP 5.1 — Buat/edit file .env di frontend:
+    File: /frontend/.env
+    Isi: VITE_API_URL=http://localhost:5000
+
+  STEP 5.2 — Jalankan frontend:
+    cd "d:\project with react js\jeje-portofolio\frontend"
+    npm run dev
+
+    Frontend tersedia di: http://localhost:5173
+
+  STEP 5.3 — Verifikasi integrasi:
+    Buka http://localhost:5173 → scroll ke bagian "Featured Work"
+    → Project yang Anda tambahkan via Admin Panel harus muncul di sini!
+
+  ALUR DATA LENGKAP:
+    Admin Panel (tambah) → Backend API → Supabase DB + Storage
+                                              ↓
+    Frontend Portfolio ←── GET /api/projects ←
+
+
+====================================================================
+BAGIAN 6: DEPLOY KE LIVE HOSTING
+====================================================================
+
+STRUKTUR DEPLOY:
+  Backend + Admin UI → Railway / Render (gratis tier tersedia)
+  Frontend Portfolio → Vercel (gratis, sangat mudah)
+
+
+--- DEPLOY BACKEND KE RAILWAY ---
+
+  1. Push kode backend ke GitHub (pastikan .env masuk .gitignore!)
+  2. Buka https://railway.app → New Project → Deploy from GitHub
+  3. Pilih repo → Pilih folder /backend sebagai root
+  4. Di Railway → Environment Variables, isi semua variable dari .env:
+       DATABASE_URL = ...
+       DIRECT_URL = ...
+       SUPABASE_URL = ...
+       SUPABASE_SERVICE_ROLE_KEY = ...
+       JWT_SECRET = ...
+       ADMIN_PASSWORD = ...
+       PORT = 5000
+       FRONTEND_URL = https://your-portfolio.vercel.app
+  5. Railway akan otomatis run "npm start" → jalankan server.js
+  6. Salin URL Railway Anda (contoh: https://jeje-backend.up.railway.app)
+
+
+--- DEPLOY ADMIN UI KE RAILWAY/VERCEL ---
+
+  1. Masuk ke folder /backend/admin-ui
+  2. Ubah .env: VITE_API_URL=https://jeje-backend.up.railway.app
+  3. Build: npm run build
+  4. Deploy folder "dist" ke Vercel atau Railway
+  5. Di Vercel → Environment Variables:
+       VITE_API_URL = https://jeje-backend.up.railway.app
+
+
+--- DEPLOY FRONTEND KE VERCEL ---
+
+  1. Ubah /frontend/.env:
+       VITE_API_URL=https://jeje-backend.up.railway.app
+  2. Push frontend ke GitHub
+  3. Buka https://vercel.com → Import Project → Pilih repo frontend
+  4. Di Vercel → Environment Variables:
+       VITE_API_URL = https://jeje-backend.up.railway.app
+  5. Deploy!
+  6. Salin URL Vercel → Update FRONTEND_URL di Railway backend
+
+  ⚠️ PENTING SETELAH DEPLOY:
+     Update FRONTEND_URL di backend environment variable Railway
+     ke URL Vercel Anda, agar CORS tidak memblokir request!
+
+
+====================================================================
+CHECKLIST AKHIR — Sebelum Live
+====================================================================
+
+  [ ] .env backend sudah diisi semua (DATABASE_URL, SUPABASE_URL, dll)
+  [ ] Bucket "project-images" di Supabase sudah dibuat & Public
+  [ ] npx prisma db push berhasil (tabel Project terbuat di Supabase)
+  [ ] Backend berjalan di port 5000 tanpa error
+  [ ] Admin Panel bisa login dengan ADMIN_PASSWORD
+  [ ] Bisa tambah/edit/hapus project dari Admin Panel
+  [ ] Gambar berhasil upload ke Supabase Storage
+  [ ] Frontend menampilkan project dari backend (bukan data statis)
+  [ ] Saat deploy: VITE_API_URL di frontend .env sudah URL backend live
+  [ ] Saat deploy: FRONTEND_URL di backend .env sudah URL frontend live
+  [ ] .env TIDAK di-commit ke GitHub (ada di .gitignore)
+
+====================================================================
+RINGKASAN PORT LOKAL
+====================================================================
+
+  http://localhost:5000  → Backend API
+  http://localhost:5173  → Frontend Portfolio
+  http://localhost:5174  → Admin Panel (atau port otomatis Vite)
+
+====================================================================
+Julian Nur Fadzlin — Portfolio CMS Integration Guide
+====================================================================
