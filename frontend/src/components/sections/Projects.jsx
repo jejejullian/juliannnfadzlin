@@ -1,20 +1,19 @@
 // ============================================================
 // src/components/sections/Projects.jsx
-// Membaca project dari Backend API (bukan lagi data statis)
+// UPDATED: Fetch langsung dari Supabase (tanpa Express backend)
 // ============================================================
 
-// ⚠️ INTEGRASI BACKEND → FRONTEND
-// Pastikan VITE_API_URL sudah diset di file .env frontend:
-//   VITE_API_URL=http://localhost:5000        (development)
-//   VITE_API_URL=https://your-backend.railway.app  (production)
-
 import { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 import ProjectCard from "./ProjectCard";
 
-// Ambil URL backend dari .env (Vite mengekspos variable dengan prefix VITE_)
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// Supabase client — baca dari environment variable Vite
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
-// Warna tema kartu bergantian (sama seperti sebelumnya)
+// Warna tema kartu bergantian
 const projectThemes = [
   { bg: "#0a0a0a", text: "#ededed", accent: "#737373", iconColor: "#a3a3a3" },
   { bg: "#f5f5f5", text: "#0a0a0a", accent: "#525252", iconColor: "#525252" },
@@ -30,12 +29,15 @@ export default function Projects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/projects`);
-        if (!res.ok) throw new Error("Gagal memuat project");
-        const data = await res.json();
-        setProjects(data);
+        const { data, error } = await supabase
+          .from("Project")
+          .select("*")
+          .order("createdAt", { ascending: false });
+
+        if (error) throw error;
+        setProjects(data || []);
       } catch (err) {
-        console.error("[Projects] Fetch error:", err);
+        console.error("[Projects] Supabase fetch error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -63,7 +65,7 @@ export default function Projects() {
           {[1, 2].map((n) => (
             <div
               key={n}
-              className="rounded-2xl md:rounded-3xl h-[220px] md:h-[320px] animate-pulse"
+              className="rounded-2xl md:rounded-3xl h-[220px] md:h-80 animate-pulse"
               style={{ background: "#e5e5e5" }}
             />
           ))}
@@ -75,7 +77,7 @@ export default function Projects() {
         <div className="px-5 md:px-[60px]">
           <div className="rounded-2xl p-8 text-center" style={{ background: "#f5f5f5" }}>
             <p className="text-neutral-500 text-sm">
-              Gagal memuat project. Pastikan backend berjalan.
+              Gagal memuat project dari database.
             </p>
             <p className="text-xs text-neutral-400 mt-1">{error}</p>
           </div>
@@ -91,7 +93,7 @@ export default function Projects() {
         </div>
       )}
 
-      {/* Stacked Cards Container */}
+      {/* Stacked Cards */}
       {!loading && !error && projects.length > 0 && (
         <div className="relative">
           {projects.map((project, index) => (
