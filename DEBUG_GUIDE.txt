@@ -1,0 +1,115 @@
+# LAPORAN ERROR & PANDUAN DEBUGGING - PORTFOLIO PROJECT
+# Dibuat untuk: Julian
+
+-----------------------------------------------------------
+1. ANALISIS MASALAH (CATATAN ERROR)
+-----------------------------------------------------------
+
+Berdasarkan struktur folder Anda saat ini, berikut adalah potensi masalah utama:
+
+A. STRUKTUR FOLDER YANG MEMBINGUNGKAN (Vercel Root)
+- Folder 'admin-ui' berada di dalam folder 'backend'.
+- Jika Anda mendeploy folder 'backend' ke Vercel, Vercel akan mencoba menjalankannya sebagai Node.js Backend.
+- Jika Anda mendeploy folder 'admin-ui' ke Vercel secara terpisah, Anda harus mengatur "Root Directory" di Vercel Dashboard ke 'backend/admin-ui'.
+
+B. DUPLIKASI LOGIKA (Express vs Direct Supabase)
+- Backend Anda (server.js) menggunakan Prisma untuk akses database.
+- Admin UI Anda (lib/api.js) menggunakan Supabase Client langsung.
+- Masalah: Jika Anda menggunakan keduanya, Anda harus mengelola dua set izin/auth. Sebaiknya Admin UI memanggil API Backend Anda, bukan langsung ke Supabase (kecuali untuk upload gambar).
+
+C. VARIABEL LINGKUNGAN (Environment Variables)
+- Seringkali error "500 Internal Server Error" di Vercel disebabkan karena variabel di Dashboard Vercel belum diisi atau namanya tidak sesuai.
+- Untuk Frontend (Vite), variabel HARUS diawali dengan VITE_ (misal: VITE_SUPABASE_URL).
+
+D. PRISMA CLIENT DI VERCEL
+- Jika Backend (Express) error "PrismaClient did not initialize", itu karena Anda belum menambahkan script "postinstall": "prisma generate" di package.json backend.
+
+E. API MASIH MENGARAH KE LOCALHOST (ERROR KRITIS)
+- Berdasarkan pengecekan di https://juliannnfadzlin.vercel.app dan https://juliannnfadzlin-o2n6.vercel.app:
+- Website Anda mencoba mengambil data dari `http://localhost:5000/api/projects`.
+- Masalah: Saat sudah di Vercel (online), website tidak bisa mengakses 'localhost' (komputer Anda). Ini menyebabkan error `ERR_CONNECTION_REFUSED` dan data tidak muncul.
+
+F. MISSING SUPABASE KEYS DI .ENV FRONTEND
+- File `.env` di folder `frontend` dan `admin-ui` belum memiliki `VITE_SUPABASE_URL` dan `VITE_SUPABASE_ANON_KEY`.
+- Meskipun backend memilikinya, frontend (Vite) juga membutuhkannya jika Anda memanggil Supabase secara langsung dari kode React.
+
+G. ERROR 403 FORBIDDEN DI VERCEL
+- Saat ini website Anda menampilkan "403 Forbidden". Ini karena Vercel tidak menemukan file `index.html` di folder hasil build.
+- Kemungkinan besar Root Directory atau Output Directory (default: `dist`) di Vercel Settings belum sesuai dengan struktur project Vite Anda.
+
+H. SUPABASE DATABASE & STORAGE BELUM SIAP
+- Tabel `Project` di Supabase masih KOSONG (0 data).
+- Kebijakan (Policy) RLS untuk `INSERT` pada tabel `Project` belum ada, sehingga Admin UI tidak bisa menambah data.
+- Bucket `portfolio-assets` di Storage belum memiliki Policy sama sekali (tidak bisa upload/lihat gambar).
+
+-----------------------------------------------------------
+2. APA YANG HARUS DILAKUKAN (SOLUSI)
+-----------------------------------------------------------
+
+STEP 1: Konfigurasi Vercel Dashboard
+Pastikan Anda menambahkan variabel berikut di Dashboard Vercel untuk MASING-MASING folder:
+
+Untuk Project BACKEND:
+- DATABASE_URL= (Ambil dari Supabase > Database > Connection String > Node.js)
+- DIRECT_URL= (Ambil dari Supabase > Database > Connection String > Transaction)
+- JWT_SECRET= (Isi bebas, tapi harus sama dengan yang di kode)
+
+Untuk Project ADMIN-UI:
+- VITE_SUPABASE_URL= (Dari Supabase Project Settings)
+- VITE_SUPABASE_ANON_KEY= (Dari Supabase Project Settings)
+
+STEP 2: Perbaiki package.json Backend
+Tambahkan perintah generate prisma agar Vercel bisa membaca database:
+"scripts": {
+  "start": "node server.js",
+  "postinstall": "prisma generate"
+}
+
+STEP 3: Izin Supabase Storage
+Jika upload gambar gagal:
+1. Buka Supabase Dashboard > Storage.
+2. Pastikan Bucket 'portfolio-assets' sudah dibuat.
+3. Klik "Policies" dan pastikan ada akses "SELECT" dan "INSERT" untuk publik atau pengguna terautentikasi.
+
+STEP 4: Deploy Backend ke Vercel/Layanan Lain
+- Backend Express Anda saat ini belum 'live'. Anda harus mendeploy folder `backend` agar memiliki URL online (misal: `https://jeje-portfolio-api.vercel.app`).
+- Setelah backend live, ganti `VITE_API_URL` di Admin UI dan Frontend Anda ke URL tersebut.
+
+STEP 5: Konfigurasi Supabase Policies
+1. Buka Supabase Dashboard > Database > Tables > Project > RLS Policies.
+2. Tambahkan Policy baru: "Enable INSERT for all users" (atau autentikasi).
+3. Buka Supabase Dashboard > Storage > portfolio-assets > Policies.
+4. Tambahkan Policy "SELECT" dan "INSERT" agar gambar bisa muncul dan diupload.
+
+-----------------------------------------------------------
+3. CARA MENDEBUG SENDIRI (MANUAL)
+-----------------------------------------------------------
+
+A. CEK LOGS DI VERCEL (Paling Penting!)
+- Buka dashboard Vercel > Klik Project Anda.
+- Klik tab "Logs" atau "Runtime Logs".
+- Di sana akan muncul error spesifik (misal: "Table not found" atau "Auth error").
+
+B. CEK NETWORK TAB DI BROWSER
+- Klik kanan di halaman web > Inspect > Network.
+- Coba lakukan aksi (misal: klik Login/Add Project).
+- Lihat baris yang berwarna MERAH. Klik baris itu, lalu klik tab "Response" untuk melihat pesan error dari server.
+
+C. TEST API LOKAL DENGAN POSTMAN
+- Jalankan backend Anda secara lokal (npm run dev).
+- Gunakan Postman untuk mencoba endpoint (GET http://localhost:5000/api/projects).
+- Jika di lokal error, perbaiki dulu sebelum upload ke Vercel.
+
+D. CEK DATABASE DENGAN PRISMA STUDIO
+- Di folder backend, jalankan: npx prisma studio
+- Ini akan membuka browser yang menampilkan isi database Anda secara langsung.
+
+-----------------------------------------------------------
+4. CATATAN KHUSUS UNTUK SUPABASE
+-----------------------------------------------------------
+Jika Anda melihat error "RLS Policy Violation", itu artinya Row Level Security (RLS) di Supabase aktif. Anda harus:
+- Menonaktifkan RLS (hanya untuk testing!) di tabel Project.
+- ATAU, buat Policy "Enable access for all users" di dashboard Supabase.
+
+-----------------------------------------------------------
+Jika Anda butuh bantuan lebih lanjut, tolong kirimkan LOG ERROR yang muncul di Vercel atau Browser Console!

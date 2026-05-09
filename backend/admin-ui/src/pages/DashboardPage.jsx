@@ -8,7 +8,7 @@ import {
   FiEdit2, FiTrash2, FiExternalLink, FiGithub,
   FiLayers, FiPlus, FiRefreshCw, FiSearch
 } from "react-icons/fi";
-import { fetchProjects, deleteProject, createProject, updateProject } from "../lib/api";
+import { fetchProjects, deleteProject, createProject, updateProject, uploadImage } from "../lib/api";
 import ProjectForm from "../components/ProjectForm";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -61,10 +61,18 @@ export default function DashboardPage({ setActivePage, showToast }) {
   }, [search, projects]);
 
   // --- Handle Edit Submit ---
-  const handleEditSubmit = async (formData) => {
+  const handleEditSubmit = async ({ projectData, imageFile }) => {
     setActionLoading(true);
     try {
-      await updateProject(editTarget.id, formData);
+      let finalData = { ...projectData };
+
+      // Upload gambar baru jika ada
+      if (imageFile) {
+        const imageUrl = await uploadImage(imageFile);
+        finalData.image_url = imageUrl;
+      }
+
+      await updateProject(editTarget.id, finalData);
       showToast("success", "Project berhasil diupdate!");
       setShowEditModal(false);
       setEditTarget(null);

@@ -102,21 +102,15 @@ export default function ProjectForm({ initialData, onSubmit, onCancel, loading }
       return;
     }
 
-    // Buat FormData
-    const fd = new FormData();
-    fd.append("title", form.title.trim());
-    fd.append("description", form.description.trim());
-    fd.append("tech_stack", form.tech_stack.trim());
-    fd.append("live_link", form.live_link.trim());
-    fd.append("github_link", form.github_link.trim());
-    if (imageFile) fd.append("image", imageFile);
+    const projectData = {
+      title: form.title.trim(),
+      description: form.description.trim(),
+      tech_stack: form.tech_stack.trim(),
+      live_link: form.live_link.trim() || null,
+      github_link: form.github_link.trim() || null,
+    };
 
-    // Jika edit dan tidak upload gambar baru, kirim URL lama
-    if (initialData && !imageFile && initialData.image_url) {
-      fd.append("image_url", initialData.image_url);
-    }
-
-    onSubmit(fd);
+    onSubmit({ projectData, imageFile });
   };
 
   const isValid =

@@ -6,15 +6,25 @@
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import ProjectForm from "../components/ProjectForm";
-import { createProject } from "../lib/api";
+import { createProject, uploadImage } from "../lib/api";
 
 export default function AddProjectPage({ setActivePage, showToast }) {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit = async ({ projectData, imageFile }) => {
     setLoading(true);
     try {
-      await createProject(formData);
+      let finalData = { ...projectData };
+
+      // 1. Upload Gambar
+      if (imageFile) {
+        const imageUrl = await uploadImage(imageFile);
+        finalData.image_url = imageUrl;
+      }
+
+      // 2. Simpan ke Database
+      await createProject(finalData);
+      
       showToast("success", "Project berhasil ditambahkan! 🎉");
       setActivePage("dashboard");
     } catch (err) {

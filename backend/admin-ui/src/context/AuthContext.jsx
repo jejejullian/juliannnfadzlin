@@ -1,41 +1,63 @@
-// ============================================================
-// src/context/AuthContext.jsx
-// Global auth state — login, logout, token persistence
-// ============================================================
-
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginApi } from "../lib/api";
+import { supabase, loginApi } from "../lib/api";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("admin_token"));
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true); // Start as true to check session
+  const [loginLoading, setLoginLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const isAuthenticated = !!token;
+  useEffect(() => {
+    // 1. Check initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-  const login = async (password) => {
-    setLoading(true);
+    // 2. Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const login = async (email, password) => {
+    setLoginLoading(true);
     setError(null);
     try {
-      const data = await loginApi(password);
-      localStorage.setItem("admin_token", data.token);
-      setToken(data.token);
+      await loginApi(email, password);
+      // Supabase will automatically trigger onAuthStateChange
     } catch (err) {
       setError(err.message);
+      throw err;
     } finally {
-      setLoading(false);
+      setLoginLoading(false);
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("admin_token");
-    setToken(null);
+  const logout = async () => {
+    await supabase.auth.signOut();
   };
 
+  const isAuthenticated = !!session;
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading, error, setError }}>
+    <AuthContext.Provider value={{ 
+      isAuthenticated, 
+      user, 
+      login, 
+      logout, 
+      loading, 
+      loginLoading, 
+      error, 
+      setError 
+    }}>
       {children}
     </AuthContext.Provider>
   );

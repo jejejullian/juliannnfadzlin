@@ -7,6 +7,30 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // -------------------------------------------------------
+// HELPERS
+// -------------------------------------------------------
+
+// Helper upload gambar ke Supabase Storage
+export const uploadImage = async (file) => {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+  const filePath = `project-images/${fileName}`;
+
+  const { data, error } = await supabase.storage
+    .from('portfolio-assets') // Ganti dengan nama Bucket Anda di Supabase
+    .upload(filePath, file);
+
+  if (error) throw new Error("Gagal upload gambar: " + error.message);
+
+  // Ambil URL Publik
+  const { data: { publicUrl } } = supabase.storage
+    .from('portfolio-assets')
+    .getPublicUrl(filePath);
+
+  return publicUrl;
+};
+
+// -------------------------------------------------------
 // AUTH (Menggunakan Supabase Auth)
 // -------------------------------------------------------
 export const loginApi = async (email, password) => {
@@ -23,9 +47,9 @@ export const loginApi = async (email, password) => {
 // -------------------------------------------------------
 export const fetchProjects = async () => {
   const { data, error } = await supabase
-    .from('Project') // Pastikan nama tabel sesuai di Supabase (besar/kecil huruf berpengaruh)
+    .from('Project') 
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('createdAt', { ascending: false });
 
   if (error) throw new Error(error.message);
   return data;
@@ -41,7 +65,7 @@ export const createProject = async (projectData) => {
     .select();
 
   if (error) throw new Error(error.message);
-  return data;
+  return data[0];
 };
 
 // -------------------------------------------------------
@@ -55,7 +79,7 @@ export const updateProject = async (id, updateData) => {
     .select();
 
   if (error) throw new Error(error.message);
-  return data;
+  return data[0];
 };
 
 // -------------------------------------------------------

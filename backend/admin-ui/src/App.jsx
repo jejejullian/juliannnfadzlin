@@ -13,7 +13,7 @@ import TopBar from "./components/TopBar";
 import Toast from "./components/Toast";
 
 function AdminApp() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const [activePage, setActivePage] = useState("dashboard");
   const [toast, setToast] = useState(null);
 
@@ -22,6 +22,14 @@ function AdminApp() {
   }, []);
 
   const closeToast = useCallback(() => setToast(null), []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-border border-t-accent animate-spin-slow" />
+      </div>
+    );
+  }
 
   if (!isAuthenticated) return <LoginPage />;
 
