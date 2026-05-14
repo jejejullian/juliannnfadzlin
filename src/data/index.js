@@ -1,9 +1,10 @@
-import { SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass, SiJavascript, SiReact, SiPhp, SiXampp, SiMysql, SiGit, SiPostman, SiVite, SiSupabase } from "react-icons/si";
+import { SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass, SiJavascript, SiReact, SiPhp, SiXampp, SiMysql, SiGit, SiPostman, SiVite, SiSupabase, SiNodedotjs, SiExpress, SiPrisma, SiPostgresql } from "react-icons/si";
 
 import niki from "../assets/image/project1.png";
 import yadika from "../assets/image/project2.png";
 import forecazt from "../assets/image/project3.png";
 import animedesuwa from "../assets/image/project4.png";
+import blogapi from "../assets/image/project5.png";
 
 import profile1 from "../assets/image/profile1.jpeg";
 import profile2 from "../assets/image/profile2.jpeg";
@@ -35,7 +36,7 @@ export const projectsData = [
     title: "PT. Niki Akurasi Persada",
     year: 2023,
     desc: "Company Profile",
-    icons: [SiHtml5, SiCss, SiBootstrap],
+    icons: [SiHtml5, SiCss, SiJavascript, SiBootstrap],
     image: niki,
     link: "https://niki-akurasi-persada.vercel.app/",
   },
@@ -44,7 +45,7 @@ export const projectsData = [
     title: "Yadika's Inventory",
     year: 2024,
     desc: "Management System",
-    icons: [SiPhp, SiJavascript, SiBootstrap],
+    icons: [SiPhp, SiJavascript, SiMysql, SiBootstrap],
     image: yadika,
     link: null,
   },
@@ -65,6 +66,15 @@ export const projectsData = [
     icons: [SiJavascript, SiTailwindcss, SiSupabase],
     image: animedesuwa,
     link: "https://animedesuwa.vercel.app/",
+  },
+  {
+    id: 5,
+    title: "Blog API",
+    year: 2026,
+    desc: "Full-Stack Blog Platform",
+    icons: [SiNodedotjs, SiExpress, SiPrisma, SiPostgresql, SiReact, SiTailwindcss, SiVite],
+    image: blogapi,
+    link: "https://github.com/jejejullian/blog-api",
   },
 ];
 
