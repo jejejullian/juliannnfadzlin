@@ -25,6 +25,9 @@
   --color-muted-dark:  #525252;
   --color-muted-light: #a3a3a3;
   --color-ghost:       #262626;
+
+  /* ── Spacing — px-page, p-page, etc. utilities are generated from this ── */
+  --spacing-page: 60px;
 }
 
 /* ── Transparent Overlays (rgba — must live in :root, NOT @theme) ──────────── */
@@ -35,9 +38,6 @@
   --color-track:         rgba(237, 237, 237, 0.10);
   --color-surface-dim:   rgba(255, 255, 255, 0.06);
   --color-surface-hover: rgba(255, 255, 255, 0.10);
-
-  /* Spacing token */
-  --spacing-page: 60px;
 }
 
 

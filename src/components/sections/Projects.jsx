@@ -36,7 +36,7 @@ export default function Projects() {
           return (
             <div
               key={project.id}
-              className="sticky px-3 md:px-5 lg:px-8"
+              className="sticky px-5 md:px-page"
               style={{
                 top: `${topOffset}px`,
                 marginBottom: "40px",

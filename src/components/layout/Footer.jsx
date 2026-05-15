@@ -32,7 +32,7 @@ export default function Footer() {
         }}
       />
 
-      <section id="contact" className="px-5 md:px-page p-5 md:p-10 lg:p-page bg-dark text-offwhite overflow-hidden">
+      <section id="contact" className="px-5 md:px-page py-10 md:py-16 lg:py-20 bg-dark text-offwhite overflow-hidden">
         <div className="flex flex-col gap-10 md:gap-14 lg:gap-20 max-w-[1440px] mx-auto">
           {/* Section label */}
           <div>

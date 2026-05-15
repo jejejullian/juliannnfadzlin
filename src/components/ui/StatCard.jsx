@@ -13,7 +13,7 @@ export default function StatCard({ icon: Icon, label, value, loading, delay }) {
   return (
     <ScrollReveal delay={delay} direction="up">
       <div
-        className="flex flex-col items-start gap-3 p-5 md:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        className="flex flex-row items-center gap-4 p-5 md:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
         style={{
           backgroundColor: "var(--color-dark)",
           borderColor:     "var(--color-border-dark)",
@@ -22,7 +22,7 @@ export default function StatCard({ icon: Icon, label, value, loading, delay }) {
       >
         {/* Icon badge */}
         <div
-          className="p-2.5 rounded-xl"
+          className="shrink-0 p-2.5 rounded-xl"
           style={{ backgroundColor: "var(--color-surface-dim)" }}
         >
           <Icon
@@ -32,22 +32,22 @@ export default function StatCard({ icon: Icon, label, value, loading, delay }) {
         </div>
 
         {/* Metric */}
-        <div>
+        <div className="min-w-0">
           {loading ? (
             /* Skeleton shimmer while loading */
             <div
-              className="h-8 w-16 rounded-md mb-1 animate-pulse"
+              className="h-7 w-14 rounded-md mb-1 animate-pulse"
               style={{ backgroundColor: "var(--color-surface-hover)" }}
             />
           ) : (
             <p
-              className="text-2xl md:text-3xl font-bold leading-none mb-1"
+              className="text-xl md:text-2xl font-bold leading-none mb-1 truncate"
               style={{ color: "var(--color-light)" }}
             >
               {value ?? "—"}
             </p>
           )}
-          <p className="text-xs md:text-sm" style={{ color: "var(--color-muted)" }}>
+          <p className="text-xs md:text-sm truncate" style={{ color: "var(--color-muted)" }}>
             {label}
           </p>
         </div>

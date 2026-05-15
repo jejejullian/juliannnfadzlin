@@ -24,7 +24,7 @@ export default function About() {
 
   return (
     <section id="about" className="relative flex flex-col items-center justify-center pt-16 md:pt-24 lg:pt-28 text-neutral-950 overflow-hidden scroll-mt-24">
-      <div className="w-full px-5 md:px-[60px] max-w-[1440px] mx-auto">
+      <div className="w-full px-5 md:px-page max-w-[1440px] mx-auto">
         <div className="mb-6 md:mb-16">
           {/* Section label */}
           <ScrollReveal>
