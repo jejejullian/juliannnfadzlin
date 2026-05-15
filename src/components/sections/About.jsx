@@ -1,114 +1,132 @@
 import { useState } from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 import ResumeModal from "../ui/ResumeModal";
 import ScrollReveal from "../ui/ScrollReveal";
 import { profileImages, resumeData } from "../../data";
 
-export default function About() {
-  const [hoveredImage, setHoveredImage] = useState(2);
+// ─── Social Links ────────────────────────────────────────────────────────────
+const SOCIALS = [
+  { label: "Github", href: "https://github.com/jejejullian" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/juliannurfadzlin/" },
+];
 
+// ─── Main Component ───────────────────────────────────────────────────────────
+export default function About() {
   const [showResumeModal, setShowResumeModal] = useState(false);
 
-  const [profile1, profile2, profile3] = profileImages;
-
-  const getImageSize = (imageIndex) => {
-    const isHovered = hoveredImage === imageIndex;
-
-    // Mobile (< md): 1 image full size
-    // Tablet (md - lg): 2 images side by side
-    // Desktop (>= lg): 3 images with hover effect
-    if (isHovered) {
-      return "w-full md:w-[320px] lg:w-[550px] h-[240px] md:h-[260px] lg:h-[360px]";
-    }
-    return "w-full md:w-[320px] lg:w-[280px] h-[240px] md:h-[260px] lg:h-[180px]";
-  };
+  // Use only the first (leftmost) profile photo
+  const [mainPhoto] = profileImages;
 
   return (
-    <section id="about" className="relative flex flex-col items-center justify-center pt-16 md:pt-24 lg:pt-28 text-neutral-950 overflow-hidden scroll-mt-24">
-      <div className="w-full px-5 md:px-page max-w-[1440px] mx-auto">
-        <div className="mb-6 md:mb-16">
-          {/* Section label */}
-          <ScrollReveal>
-            <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] text-center mb-3 md:mb-4">
-              About Me
-            </p>
-          </ScrollReveal>
+    <section
+      id="about"
+      className="relative text-neutral-950 overflow-hidden scroll-mt-24 pt-16 md:pt-24 lg:pt-28"
+    >
+      <div className="w-full px-5 md:px-page">
 
-          <ScrollReveal delay={100}>
-            <p className="text-sm md:text-xl text-center">Hi, I'm</p>
-          </ScrollReveal>
+        {/* ── 2-column asymmetric grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 
-          <ScrollReveal delay={150}>
-            <h1 className="text-center text-4xl md:text-6xl font-bold mb-3 md:mb-8">{resumeData.header.name}</h1>
-          </ScrollReveal>
+          {/* ════ LEFT COL — Photo + Stats ════ */}
+          <div className="lg:col-span-2 flex flex-col gap-5">
+            <ScrollReveal delay={80}>
 
-          <ScrollReveal delay={200}>
-            <p className="text-center text-sm md:text-xl font-normal mb-3 md:mb-8">{resumeData.header.intro}</p>
-          </ScrollReveal>
+              {/* Single portrait photo */}
+              <div className="w-full aspect-3/4 max-h-[500px] overflow-hidden rounded-2xl">
+                <img
+                  src={mainPhoto}
+                  alt="Julian Nur Fadzlin"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
 
-          {/* Styled quote */}
-          <ScrollReveal delay={250}>
-            <div className="relative max-w-[500px] mx-auto mb-3 md:mb-8">
-              <span className="absolute -top-4 -left-2 md:-top-6 md:-left-4 text-4xl md:text-6xl text-neutral-200 font-serif leading-none select-none">"</span>
-              <p className="text-center text-sm md:text-xl font-bold italic px-4">
-                {resumeData.header.subIntro}
+            </ScrollReveal>
+          </div>
+
+          {/* ════ RIGHT COL — Editorial Text ════ */}
+          <div className="lg:col-span-3 flex flex-col justify-start">
+
+            {/* Section label */}
+            <ScrollReveal>
+              <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] mb-6 md:mb-8">
+                About Me
               </p>
-              <span className="absolute -bottom-6 -right-2 md:-bottom-8 md:-right-4 text-4xl md:text-6xl text-neutral-200 font-serif leading-none select-none">"</span>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
 
-          <ScrollReveal delay={300}>
-            <p className="text-center text-sm md:text-lg lg:text-xl">
-              Want to know more?{" "}
+            {/* Big role typography */}
+            <ScrollReveal delay={60}>
+              <div className="mb-6 md:mb-8">
+                <p className="font-bold uppercase leading-[0.88] tracking-tight text-5xl md:text-6xl lg:text-7xl xl:text-[80px] text-neutral-900">
+                  Front-end
+                </p>
+                <p className="font-bold uppercase leading-[0.88] tracking-tight text-5xl md:text-6xl lg:text-7xl xl:text-[80px] text-neutral-300">
+                  Developer.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            {/* Bio */}
+            <ScrollReveal delay={120}>
+              <p className="text-base md:text-lg text-neutral-600 leading-relaxed mb-6 md:mb-8 max-w-md">
+                {resumeData.header.intro}{" "}
+                <span className="font-semibold text-neutral-800">
+                  {resumeData.header.subIntro}
+                </span>
+              </p>
+            </ScrollReveal>
+
+            {/* Divider */}
+            <div className="h-px bg-neutral-200 mb-6 md:mb-8" />
+
+            {/* Experience + Education timeline */}
+            <ScrollReveal delay={160}>
+              <div className="space-y-4 mb-8 md:mb-10">
+                {resumeData.experiences.map((exp) => (
+                  <div key={exp.company} className="flex items-start gap-4">
+                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest mt-0.5 shrink-0 w-8">
+                      {exp.period}
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-neutral-800 leading-tight">{exp.title}</p>
+                      <p className="text-xs text-neutral-500">{exp.company}</p>
+                    </div>
+                  </div>
+                ))}
+                <div className="flex items-start gap-4">
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-widest mt-0.5 shrink-0 w-8">
+                    2021
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-800 leading-tight">
+                      {resumeData.education[0].degree}
+                    </p>
+                    <p className="text-xs text-neutral-500">
+                      {resumeData.education[0].school}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Resume CTA */}
+            <ScrollReveal delay={200}>
               <button
                 onClick={() => setShowResumeModal(true)}
-                className="relative font-semibold after:bg-neutral-950 after:absolute after:h-0.5 after:w-0 after:top-7 after:left-1/2 after:transform after:translate-x-[-50%] hover:after:w-full after:transition-all after:duration-300 active:text-[#545454] cursor-pointer"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-neutral-950 text-neutral-950 bg-transparent transition-all duration-300 hover:bg-neutral-950 hover:text-white hover:gap-3"
               >
                 Read My Resume
+                <FiArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
-            </p>
-          </ScrollReveal>
-        </div>
+            </ScrollReveal>
 
-        <ScrollReveal delay={100}>
-          <div className="mb-6 md:mb-12">
-            {/* Mobile view */}
-            <div className="flex flex-col items-center gap-4 md:hidden">
-              <img src={profile1} alt="Julian's photo 2" className={`rounded-xl object-cover object-top transition-all duration-300 ease-in-out ${getImageSize(2)}`} />
-            </div>
-
-            {/* Tablet view */}
-            <div className="hidden md:flex lg:hidden items-center justify-center gap-4">
-              <img src={profile2} alt="Julian's photo 1" className={`rounded-xl object-cover transition-all duration-300 ease-in-out ${getImageSize(1)}`} />
-              <img src={profile3} alt="Julian's photo 2" className={`rounded-xl object-cover transition-all duration-300 ease-in-out ${getImageSize(2)}`} />
-            </div>
-
-            {/* Desktop view */}
-            <div className="hidden lg:flex items-center justify-center gap-4 h-[360px]">
-              <img
-                src={profile1}
-                alt="Julian's photo 1"
-                className={`rounded-xl object-cover transition-all duration-300 ease-in-out cursor-pointer shrink-0 ${getImageSize(1)}`}
-                onMouseEnter={() => setHoveredImage(1)}
-                onMouseLeave={() => setHoveredImage(2)}
-              />
-
-              <img src={profile2} alt="Julian's photo 2" className={`rounded-xl object-cover transition-all duration-300 ease-in-out cursor-pointer shrink-0 ${getImageSize(2)}`} onMouseEnter={() => setHoveredImage(2)} />
-
-              <img
-                src={profile3}
-                alt="Julian's photo 3"
-                className={`rounded-xl object-cover transition-all duration-300 ease-in-out cursor-pointer shrink-0 ${getImageSize(3)}`}
-                onMouseEnter={() => setHoveredImage(3)}
-                onMouseLeave={() => setHoveredImage(2)}
-              />
-            </div>
           </div>
-        </ScrollReveal>
+        </div>
       </div>
 
-      {showResumeModal && (
-        <ResumeModal onClose={() => setShowResumeModal(false)} />
-      )}
+      {/* Bottom padding */}
+      <div className="h-16 md:h-24" />
+
+      {showResumeModal && <ResumeModal onClose={() => setShowResumeModal(false)} />}
     </section>
   );
 }
