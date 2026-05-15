@@ -28,11 +28,11 @@ export default function Footer() {
       <div
         className="h-24 md:h-32 lg:h-40"
         style={{
-          background: "linear-gradient(to bottom, #ededed 0%, #0a0a0a 100%)",
+          background: "linear-gradient(to bottom, var(--color-light) 0%, var(--color-dark) 100%)",
         }}
       />
 
-      <section id="contact" className="px-5 md:px-[60px] p-5 md:p-10 lg:p-[60px] bg-[#0a0a0a] text-[#eeeeee] overflow-hidden">
+      <section id="contact" className="px-5 md:px-page p-5 md:p-10 lg:p-page bg-dark text-offwhite overflow-hidden">
         <div className="flex flex-col gap-10 md:gap-14 lg:gap-20 max-w-[1440px] mx-auto">
           {/* Section label */}
           <div>
@@ -53,7 +53,7 @@ export default function Footer() {
                 Reach me out at{" "}
                 <a
                   href="mailto:juliannnfadzlin@gmail.com"
-                  className="group inline-flex items-end gap-0.5 text-[#eeeeee] hover:text-white transition-colors duration-300"
+                  className="group inline-flex items-end gap-0.5 text-offwhite hover:text-white transition-colors duration-300"
                 >
                   <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white hover:after:w-full after:transition-all after:duration-300">
                     juliannnfadzlin@gmail.com
