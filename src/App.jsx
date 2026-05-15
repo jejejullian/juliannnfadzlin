@@ -9,6 +9,7 @@ import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import TechStack from "./components/sections/TechStack";
 import Projects from "./components/sections/Projects";
+import GithubActivity from "./components/sections/GithubActivity";
 
 // UI Components
 import LoadingScreen from "./components/ui/LoadingScreen";
@@ -19,12 +20,13 @@ function App() {
   return (
     <>
       {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
-      <div className="min-h-screen bg-[#ededed] scroll-smooth">
+      <div className="min-h-screen bg-light scroll-smooth">
         <Navbar />
         <Hero />
         <About />
         <TechStack />
         <Projects />
+        <GithubActivity />
         <Footer />
       </div>
     </>

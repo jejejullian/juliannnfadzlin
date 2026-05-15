@@ -16,7 +16,7 @@ export default function TechStack() {
   const duplicatedNames = [...techNames, ...techNames];
 
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section className="py-12 md:py-16 lg:py-20">
       {/* Section heading */}
       <ScrollReveal className="px-5 md:px-[60px] mb-8 md:mb-12">
         <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] text-center mb-2 md:mb-3">

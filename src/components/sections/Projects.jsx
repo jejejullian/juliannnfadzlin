@@ -2,20 +2,21 @@ import { projectsData } from "../../data";
 import { FiArrowUpRight } from "react-icons/fi";
 
 export default function Projects() {
-  const projects = projectsData;
+  // Sort newest → oldest using the precise date field (YYYY-MM)
+  const projects = [...projectsData].sort((a, b) => b.date.localeCompare(a.date));
 
   // Alternating color themes for stacked cards — dark/light rhythm
   const cardThemes = [
-    { bg: "#0a0a0a", text: "#ededed", accent: "#737373", iconColor: "#a3a3a3" },
-    { bg: "#f5f5f5", text: "#0a0a0a", accent: "#525252", iconColor: "#525252" },
-    { bg: "#0a0a0a", text: "#ededed", accent: "#737373", iconColor: "#a3a3a3" },
-    { bg: "#f5f5f5", text: "#0a0a0a", accent: "#525252", iconColor: "#525252" },
+    { bg: "var(--color-dark)",       text: "var(--color-light)",    accent: "var(--color-muted)",      iconColor: "var(--color-muted-light)" },
+    { bg: "var(--color-card-light)", text: "var(--color-dark)",     accent: "var(--color-muted-dark)", iconColor: "var(--color-muted-dark)"  },
+    { bg: "var(--color-dark)",       text: "var(--color-light)",    accent: "var(--color-muted)",      iconColor: "var(--color-muted-light)" },
+    { bg: "var(--color-card-light)", text: "var(--color-dark)",     accent: "var(--color-muted-dark)", iconColor: "var(--color-muted-dark)"  },
   ];
 
   return (
-    <section id="project" className="mt-32 lg:mt-64 scroll-mt-24">
+    <section id="project" className="mt-16 md:mt-20 lg:mt-24 scroll-mt-24">
       {/* Section Heading */}
-      <div className="px-5 md:px-[60px] mb-10 md:mb-16">
+      <div className="px-5 md:px-page mb-10 md:mb-16">
         <p className="text-sm md:text-base text-neutral-500 uppercase tracking-widest mb-2 md:mb-3">
           Portfolio
         </p>
@@ -191,7 +192,7 @@ export default function Projects() {
       </div>
 
       {/* Bottom spacer — ensures the last card can scroll into its sticky position */}
-      <div className="h-32 lg:h-64" />
+      <div className="h-16 lg:h-20" />
     </section>
   );
 }

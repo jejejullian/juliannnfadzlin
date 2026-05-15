@@ -52,7 +52,7 @@ export default function LoadingScreen({ onFinish }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "var(--color-dark)",
         overflow: "hidden",
       }}
     >
@@ -76,7 +76,7 @@ export default function LoadingScreen({ onFinish }) {
           left: 0,
           right: 0,
           height: "50%",
-          backgroundColor: "#0a0a0a",
+          backgroundColor: "var(--color-dark)",
           zIndex: 2,
           transform: isExiting ? "translateY(-100%)" : "translateY(0)",
           transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
@@ -91,7 +91,7 @@ export default function LoadingScreen({ onFinish }) {
           left: 0,
           right: 0,
           height: "50%",
-          backgroundColor: "#0a0a0a",
+          backgroundColor: "var(--color-dark)",
           zIndex: 2,
           transform: isExiting ? "translateY(100%)" : "translateY(0)",
           transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
@@ -119,7 +119,7 @@ export default function LoadingScreen({ onFinish }) {
           style={{
             fontFamily: '"nicomoji", sans-serif',
             fontSize: "clamp(48px, 10vw, 80px)",
-            color: "#ededed",
+            color: "var(--color-light)",
             letterSpacing: "8px",
             lineHeight: 1,
             animation: "logoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards",
@@ -131,7 +131,7 @@ export default function LoadingScreen({ onFinish }) {
         {/* Subtitle */}
         <p
           style={{
-            color: "#525252",
+            color: "var(--color-muted-dark)",
             fontSize: "clamp(11px, 2vw, 14px)",
             letterSpacing: "6px",
             textTransform: "uppercase",
@@ -160,7 +160,7 @@ export default function LoadingScreen({ onFinish }) {
             style={{
               width: "100%",
               height: "1px",
-              backgroundColor: "rgba(237, 237, 237, 0.1)",
+              backgroundColor: "var(--color-track)",
               borderRadius: "2px",
               overflow: "hidden",
             }}
@@ -170,7 +170,7 @@ export default function LoadingScreen({ onFinish }) {
               style={{
                 height: "100%",
                 width: `${progress}%`,
-                backgroundColor: "#ededed",
+                backgroundColor: "var(--color-light)",
                 borderRadius: "2px",
                 transition: "width 0.1s ease-out",
               }}
@@ -180,7 +180,7 @@ export default function LoadingScreen({ onFinish }) {
           {/* Percentage */}
           <span
             style={{
-              color: "#525252",
+              color: "var(--color-muted-dark)",
               fontSize: "12px",
               fontFamily: "monospace",
               letterSpacing: "2px",
@@ -197,7 +197,7 @@ export default function LoadingScreen({ onFinish }) {
           position: "absolute",
           bottom: "30px",
           left: "30px",
-          color: "#262626",
+          color: "var(--color-ghost)",
           fontSize: "11px",
           letterSpacing: "3px",
           textTransform: "uppercase",
@@ -216,7 +216,7 @@ export default function LoadingScreen({ onFinish }) {
           position: "absolute",
           bottom: "30px",
           right: "30px",
-          color: "#262626",
+          color: "var(--color-ghost)",
           fontSize: "11px",
           letterSpacing: "3px",
           textTransform: "uppercase",

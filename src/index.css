@@ -9,10 +9,37 @@
   font-display: swap; 
 }
 
-/* Define custom font variable for Tailwind */
+/* ===== Design Tokens ===== */
 @theme {
+  /* Font */
   --font-nico: "nicomoji", sans-serif;
+
+  /* ── Core Palette (solid hex only — Tailwind generates utility classes) ── */
+  --color-dark:        #0a0a0a;
+  --color-light:       #ededed;
+  --color-offwhite:    #eeeeee;
+  --color-card-light:  #f5f5f5;
+
+  /* ── Neutral Text Tones ── */
+  --color-muted:       #737373;
+  --color-muted-dark:  #525252;
+  --color-muted-light: #a3a3a3;
+  --color-ghost:       #262626;
 }
+
+/* ── Transparent Overlays (rgba — must live in :root, NOT @theme) ──────────── */
+/* Tailwind v4 parses @theme values as RGB channels; rgba() breaks that process  */
+:root {
+  --color-border-dark:   rgba(237, 237, 237, 0.08);
+  --color-border-faint:  rgba(237, 237, 237, 0.06);
+  --color-track:         rgba(237, 237, 237, 0.10);
+  --color-surface-dim:   rgba(255, 255, 255, 0.06);
+  --color-surface-hover: rgba(255, 255, 255, 0.10);
+
+  /* Spacing token */
+  --spacing-page: 60px;
+}
+
 
 /* Keyframes for sliding animation (left to right) */
 @keyframes slide-left {
@@ -95,3 +122,29 @@
 @utility animate-scroll-bounce {
   animation: scroll-bounce 2s ease-in-out infinite;
 }
+
+/* ===== Custom Scrollbar — GitHub Heatmap ===== */
+/* Targets only the overflow-x container inside the heatmap card */
+.heatmap-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.heatmap-scroll::-webkit-scrollbar-track {
+  background: var(--color-border-faint);
+  border-radius: 99px;
+}
+
+.heatmap-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-muted-dark);
+  border-radius: 99px;
+}
+
+.heatmap-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Firefox */
+.heatmap-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-muted-dark) var(--color-border-faint);
+}
