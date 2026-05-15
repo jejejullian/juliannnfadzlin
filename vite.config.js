@@ -7,15 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['react-icons'],
   },
-  server: {
-    proxy: {
-      // Proxy /api/* to the Vercel dev server when running `vercel dev`
-      // If you run plain `vite`, the /api route will fail gracefully
-      // (useGithubData falls back to simulated data automatically)
-      '/api': {
-        target:       'http://localhost:3000',
-        changeOrigin: true,
-      },
-    },
-  },
+  // No proxy needed — useGithubData hook falls back to simulated data
+  // when /api/github is unavailable (plain `vite dev` without vercel).
+  // For real local data, run: vercel dev (starts both vite + api functions)
 })

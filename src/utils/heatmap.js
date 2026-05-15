@@ -9,7 +9,41 @@ export const MONTH_LABELS = [
 
 export const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// ─── Data Generator ─────────────────────────────────────────────────────────────
+// ─── Month Position Calculator ───────────────────────────────────────────────────
+/**
+ * Returns an array of { label, week } for each month boundary in the heatmap.
+ * Calculated dynamically from today's date so the labels always match the real data.
+ *
+ * @param {number} totalWeeks - Number of columns in the heatmap (default: WEEKS)
+ * @returns {{ label: string, week: number }[]}
+ */
+export function getMonthPositions(totalWeeks = WEEKS) {
+  // The heatmap window starts 1 year ago, aligned to the previous Sunday
+  const startDate = new Date();
+  startDate.setFullYear(startDate.getFullYear() - 1);
+  startDate.setDate(startDate.getDate() - startDate.getDay()); // rewind to Sunday
+
+  const positions = [];
+  let lastMonth = -1;
+
+  for (let w = 0; w < totalWeeks; w++) {
+    const weekStart = new Date(startDate);
+    weekStart.setDate(startDate.getDate() + w * 7);
+    const month = weekStart.getMonth();
+
+    if (month !== lastMonth) {
+      // Skip week 0 to avoid the first label being clipped at the left edge
+      if (w > 0) {
+        positions.push({ label: MONTH_LABELS[month], week: w });
+      }
+      lastMonth = month;
+    }
+  }
+
+  return positions;
+}
+
+// ─── Data Generator (fallback for local dev without token) ───────────────────────
 /**
  * Build a WEEKS×DAYS grid of simulated contribution counts.
  * Weekdays are busier; occasional random bursts simulate active periods.
@@ -33,7 +67,6 @@ export function buildHeatmapData() {
 // ─── Color Mapping ───────────────────────────────────────────────────────────────
 /**
  * Map a contribution count to a CSS background + border colour pair.
- * Returns inline-style-compatible strings (supports CSS variables and rgba).
  *
  * @param {number} count
  * @returns {{ bg: string, border: string }}
