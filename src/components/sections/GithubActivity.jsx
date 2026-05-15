@@ -1,19 +1,30 @@
-import { useState } from "react";
 import { SiGithub } from "react-icons/si";
+import { FiBook, FiGitCommit, FiStar, FiUsers } from "react-icons/fi";
 
 import ScrollReveal from "../ui/ScrollReveal";
 import StatCard from "../ui/StatCard";
 import ContributionHeatmap from "../ui/ContributionHeatmap";
 
-import { GITHUB_USERNAME, GITHUB_STATS } from "../../data/githubConfig";
-import { buildHeatmapData } from "../../utils/heatmap";
+import { GITHUB_USERNAME, STAT_CARD_DEFINITIONS } from "../../data/githubConfig";
+import { useGithubData } from "../../hooks/useGithubData";
+
+// Icon map — keeps config file free of React imports
+const ICON_MAP = {
+  repos:              FiBook,
+  totalContributions: FiGitCommit,
+  stars:              FiStar,
+  followers:          FiUsers,
+};
 
 /**
- * GithubActivity — Section that displays GitHub stats and a contribution heatmap.
- * To update stats or username, edit src/data/githubConfig.js only.
+ * GithubActivity — Displays real GitHub stats + contribution heatmap.
+ * Data is fetched from /api/github (Vercel serverless proxy) on mount.
+ * Falls back to simulated data when the API is unavailable (local dev).
+ *
+ * To update username or stat labels → src/data/githubConfig.js
  */
 export default function GithubActivity() {
-  const [heatmapData] = useState(() => buildHeatmapData());
+  const { data, loading } = useGithubData();
 
   return (
     <section
@@ -38,8 +49,15 @@ export default function GithubActivity() {
 
         {/* ── Stat Cards ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
-          {GITHUB_STATS.map((card, i) => (
-            <StatCard key={card.id} {...card} delay={i * 80} />
+          {STAT_CARD_DEFINITIONS.map((def, i) => (
+            <StatCard
+              key={def.id}
+              icon={ICON_MAP[def.key]}
+              label={def.label}
+              value={data ? data[def.key] : null}
+              loading={loading}
+              delay={i * 80}
+            />
           ))}
         </div>
 
@@ -63,6 +81,11 @@ export default function GithubActivity() {
                   </p>
                   <p className="text-xs" style={{ color: "var(--color-muted)" }}>
                     Contribution activity · Last 12 months
+                    {!loading && data?.totalContributions != null && (
+                      <span className="ml-2 font-medium" style={{ color: "var(--color-muted-light)" }}>
+                        ({data.totalContributions.toLocaleString()} total)
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
@@ -94,7 +117,10 @@ export default function GithubActivity() {
             </div>
 
             {/* Heatmap Grid */}
-            <ContributionHeatmap data={heatmapData} />
+            <ContributionHeatmap
+              data={data?.heatmap ?? null}
+              loading={loading}
+            />
           </div>
         </ScrollReveal>
 

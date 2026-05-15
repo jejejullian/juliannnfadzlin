@@ -1,14 +1,21 @@
-import { FiBook, FiGitCommit, FiStar, FiUsers } from "react-icons/fi";
-
 // ─── GitHub Profile Config ───────────────────────────────────────────────────────
-// Update this to change the GitHub username used throughout the section.
 export const GITHUB_USERNAME = "jejejullian";
 
-// ─── Stat Cards Data ─────────────────────────────────────────────────────────────
-// Edit values here whenever your stats change — no need to touch components.
-export const GITHUB_STATS = [
-  { id: "repos",     icon: FiBook,      label: "Repositories", value: "20+"  },
-  { id: "commits",   icon: FiGitCommit, label: "Total Commits", value: "500+" },
-  { id: "stars",     icon: FiStar,      label: "Stars Earned",  value: "10+"  },
-  { id: "followers", icon: FiUsers,     label: "Followers",     value: "15+"  },
+// ─── Stat Card Definitions ───────────────────────────────────────────────────────
+// 'key' maps to the property name returned by /api/github
+// 'label' is the display label shown in the UI
+export const STAT_CARD_DEFINITIONS = [
+  { id: "repos",     key: "repos",     label: "Repositories" },
+  { id: "commits",   key: "totalContributions", label: "Contributions (yr)" },
+  { id: "stars",     key: "stars",     label: "Stars Earned"  },
+  { id: "followers", key: "followers", label: "Followers"     },
 ];
+
+// ─── Fallback values (shown when /api/github is unreachable) ─────────────────────
+// Update these manually if you want the local-dev preview to feel realistic.
+export const GITHUB_STATS_FALLBACK = {
+  repos:              20,
+  totalContributions: 500,
+  stars:              10,
+  followers:          15,
+};

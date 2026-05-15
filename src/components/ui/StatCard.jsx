@@ -2,14 +2,14 @@ import ScrollReveal from "./ScrollReveal";
 
 /**
  * StatCard — Displays a single GitHub metric (repos, commits, etc.)
- * with a dark card style consistent with the site theme.
  *
- * @param {React.ElementType} icon  - React icon component
- * @param {string}            label - Metric label (e.g. "Repositories")
- * @param {string}            value - Display value (e.g. "20+")
- * @param {number}            delay - ScrollReveal animation delay in ms
+ * @param {React.ElementType} icon    - React icon component
+ * @param {string}            label   - Metric label
+ * @param {number|string}     value   - Live value from API (or fallback)
+ * @param {boolean}           loading - Whether data is still being fetched
+ * @param {number}            delay   - ScrollReveal delay in ms
  */
-export default function StatCard({ icon: Icon, label, value, delay }) {
+export default function StatCard({ icon: Icon, label, value, loading, delay }) {
   return (
     <ScrollReveal delay={delay} direction="up">
       <div
@@ -33,12 +33,20 @@ export default function StatCard({ icon: Icon, label, value, delay }) {
 
         {/* Metric */}
         <div>
-          <p
-            className="text-2xl md:text-3xl font-bold leading-none mb-1"
-            style={{ color: "var(--color-light)" }}
-          >
-            {value}
-          </p>
+          {loading ? (
+            /* Skeleton shimmer while loading */
+            <div
+              className="h-8 w-16 rounded-md mb-1 animate-pulse"
+              style={{ backgroundColor: "var(--color-surface-hover)" }}
+            />
+          ) : (
+            <p
+              className="text-2xl md:text-3xl font-bold leading-none mb-1"
+              style={{ color: "var(--color-light)" }}
+            >
+              {value ?? "—"}
+            </p>
+          )}
           <p className="text-xs md:text-sm" style={{ color: "var(--color-muted)" }}>
             {label}
           </p>
