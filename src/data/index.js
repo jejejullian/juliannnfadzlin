@@ -26,7 +26,12 @@ export const heroData = {
   btnLink: "https://www.linkedin.com/in/juliannurfadzlin/",
 };
 
-export const techStackIcons = [SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass, SiJavascript, SiReact, SiPhp, SiXampp, SiMysql, SiGit, SiPostman, SiSupabase];
+export const techStackIcons = [
+  SiJavascript, SiReact,
+  SiNodedotjs, SiExpress, SiPostgresql, SiPrisma,
+  SiGit, SiPostman, SiVite,
+  SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass
+];
 
 export const projectsData = [
   {

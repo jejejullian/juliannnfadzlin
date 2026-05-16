@@ -61,6 +61,34 @@ html {
   animation: slide-left 25s linear infinite;
 }
 
+/* Keyframes for perfectly seamless vertical scrolling */
+@keyframes marquee-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% - 1rem)); /* 1rem is gap-4 */
+  }
+}
+
+@keyframes marquee-down {
+  0% {
+    transform: translateY(calc(-100% - 1rem));
+  }
+  100% {
+    transform: translateY(0); 
+  }
+}
+
+/* Utility classes for infinite vertical scrolling */
+@utility animate-marquee-up {
+  animation: marquee-up 25s linear infinite;
+}
+
+@utility animate-marquee-down {
+  animation: marquee-down 25s linear infinite;
+}
+
 /* ── Letter-by-letter stagger reveal ── */
 @keyframes letter-reveal {
   from { transform: translateY(105%); opacity: 0; }
