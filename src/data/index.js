@@ -1,15 +1,13 @@
 import { SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass, SiJavascript, SiReact, SiPhp, SiXampp, SiMysql, SiGit, SiPostman, SiVite, SiSupabase, SiNodedotjs, SiExpress, SiPrisma, SiPostgresql } from "react-icons/si";
-
 import niki from "../assets/image/project1.png";
 import yadika from "../assets/image/project2.png";
 import forecazt from "../assets/image/project3.png";
 import animedesuwa from "../assets/image/project4.png";
 import blogapi from "../assets/image/project5.png";
-
+import jobtrack from "../assets/image/project6.png";
 import profile1 from "../assets/image/profile1.jpeg";
 import profile2 from "../assets/image/profile2.jpeg";
 import profile3 from "../assets/image/profile3.jpeg";
-
 import bgHero from "../assets/image/background1.jpg";
 
 export const navLinks = [
@@ -56,7 +54,7 @@ export const projectsData = [
     title: "Forecazt",
     year: 2025,
     date: "2025-06",
-    desc: "weather app",
+    desc: "Weather App",
     icons: [SiJavascript, SiTailwindcss, SiVite],
     image: forecazt,
     link: "https://weatherapp-odin-project.vercel.app/",
@@ -80,6 +78,16 @@ export const projectsData = [
     icons: [SiNodedotjs, SiExpress, SiPrisma, SiPostgresql, SiReact, SiTailwindcss, SiVite],
     image: blogapi,
     link: "https://github.com/jejejullian/blog-api",
+  },
+  {
+    id: 6,
+    title: "JobTrack",
+    year: 2026,
+    date: "2026-06",
+    desc: "Job Application Tracker",
+    icons: [SiReact, SiVite, SiTailwindcss, SiNodedotjs, SiExpress, SiPrisma, SiPostgresql],
+    image: jobtrack,
+    link: "https://jobtracker.my.id",
   },
 ];
 
@@ -107,7 +115,11 @@ export const resumeData = {
       title: "Web Developer Intern",
       company: "Yadika Institution",
       period: "2023",
-      description: ["Built inventory management system using PHP and JavaScript", "Implemented CRUD operations with MySQL database", "Created user-friendly interfaces with Bootstrap"],
+      description: [
+        "Built inventory management system using PHP and JavaScript",
+        "Implemented CRUD operations with MySQL database",
+        "Created user-friendly interfaces with Bootstrap",
+      ],
     },
   ],
   education: [
