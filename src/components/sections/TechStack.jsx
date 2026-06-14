@@ -1,54 +1,105 @@
 import { techStackIcons } from "../../data";
 import ScrollReveal from "../ui/ScrollReveal";
 
-// Mapping icon names to display labels
-const techNames = [
-  "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Sass",
-  "JavaScript", "React", "PHP", "XAMPP", "MySQL",
-  "Git", "Postman", "Supabase",
-];
-
 export default function TechStack() {
-  const icons = techStackIcons;
+  // Destructure exact icons from the array
+  const [
+    JsIcon, ReactIcon,
+    NodeIcon, ExpressIcon, PostgresIcon, PrismaIcon,
+    GitIcon, PostmanIcon, ViteIcon,
+    HtmlIcon, CssIcon, TailwindIcon, BootstrapIcon, SassIcon
+  ] = techStackIcons;
 
-  // Duplikasi array untuk efek infinite scroll
-  const duplicatedIcons = [...icons, ...icons];
-  const duplicatedNames = [...techNames, ...techNames];
+  const frontendIcons = [HtmlIcon, CssIcon, JsIcon, ReactIcon, TailwindIcon, BootstrapIcon, SassIcon];
+  const backendIcons = [NodeIcon, ExpressIcon, PostgresIcon, PrismaIcon];
+  const toolIcons = [GitIcon, PostmanIcon, ViteIcon];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20">
-      {/* Section heading — padded to match navbar */}
-      <ScrollReveal className="px-5 md:px-page mb-8 md:mb-12">
-        <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] text-center mb-2 md:mb-3">
-          Skills
-        </p>
-        <h2 className="text-center text-xl md:text-3xl lg:text-4xl font-bold">
-          Tools I Work With
-        </h2>
-      </ScrollReveal>
+    <section id="techstack" className="py-20 md:py-28 bg-white overflow-hidden">
+      <div className="w-full px-5 md:px-page">
 
-      {/* Scrolling icons — intentionally full-width (no horizontal padding)
-          so the left/right fade gradients blend to the viewport edge */}
-      <ScrollReveal delay={200}>
-        <div className="group relative overflow-hidden whitespace-nowrap mask-[linear-gradient(to_right,transparent_0,white_128px,white_calc(100%-128px),transparent_100%)]">
-          <div className="animate-slide-left-infinite group-hover:animation-pause inline-block w-max">
-            {duplicatedIcons.map((Icon, index) => (
-              <div
-                key={`tech-${index}`}
-                className="relative mx-6 md:mx-8 inline-flex flex-col items-center group/icon"
-              >
-                <Icon
-                  className="h-10 md:h-14 lg:h-16 w-auto text-neutral-400 hover:text-neutral-950 transition-colors duration-300 cursor-pointer"
-                />
-                {/* Tooltip */}
-                <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 bg-neutral-900 text-white text-[10px] md:text-xs px-2.5 py-1 rounded-md opacity-0 group-hover/icon:opacity-100 transition-all duration-300 whitespace-nowrap pointer-events-none translate-y-1 group-hover/icon:translate-y-0">
-                  {duplicatedNames[index]}
-                </span>
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+          {/* Left Side: Heading */}
+          <div className="lg:w-5/12 text-left">
+            <ScrollReveal>
+              <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] mb-3 md:mb-4">
+                Tech Stack
+              </p>
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold uppercase tracking-tight text-neutral-900 leading-none mb-6">
+                Tools &<span className="hidden lg:inline"><br /></span> Tech.
+              </h2>
+              <p className="text-base md:text-lg text-neutral-500 max-w-md mx-auto lg:mx-0">
+                A continuously evolving ecosystem of tools I use to build scalable, responsive, and dynamic user interfaces.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          {/* Right Side: 3 Vertical Sliders */}
+          <div className="lg:w-7/12 w-full h-[400px] md:h-[500px] relative flex gap-4 md:gap-6 justify-center rounded-[32px]  p-6 shadow-inner overflow-hidden">
+
+            {/* Fading gradients at top and bottom for smooth disappearing effect */}
+            <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-full h-24 bg-linear-to-t from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+
+            {/* Column 1: Frontend (Up) */}
+            <div className="flex flex-col gap-4 w-20 md:w-24 mt-8">
+              <div className="flex flex-col gap-4 animate-marquee-up">
+                {[...frontendIcons].map((Icon, i) => (
+                  <div key={`a1-${i}`} className="flex items-center justify-center bg-white p-5 md:p-6 rounded-2xl shadow-xs border border-neutral-100 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-neutral-900" />
+                  </div>
+                ))}
               </div>
-            ))}
+              <div className="flex flex-col gap-4 animate-marquee-up" aria-hidden="true">
+                {[...frontendIcons].map((Icon, i) => (
+                  <div key={`b1-${i}`} className="flex items-center justify-center bg-white p-5 md:p-6 rounded-2xl shadow-xs border border-neutral-100 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-neutral-900" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2: Backend (Down) */}
+            <div className="flex flex-col gap-4 w-20 md:w-24 -mt-32">
+              <div className="flex flex-col gap-4 animate-marquee-down">
+                {[...backendIcons, ...backendIcons].map((Icon, i) => (
+                  <div key={`a2-${i}`} className="flex items-center justify-center bg-neutral-900 p-5 md:p-6 rounded-2xl shadow-md border border-neutral-800 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-4 animate-marquee-down" aria-hidden="true">
+                {[...backendIcons, ...backendIcons].map((Icon, i) => (
+                  <div key={`b2-${i}`} className="flex items-center justify-center bg-neutral-900 p-5 md:p-6 rounded-2xl shadow-md border border-neutral-800 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3: Workflow/Others (Up) */}
+            <div className="flex flex-col gap-4 w-20 md:w-24 mt-16">
+              <div className="flex flex-col gap-4 animate-marquee-up">
+                {[...toolIcons, ...toolIcons].map((Icon, i) => (
+                  <div key={`a3-${i}`} className="flex items-center justify-center bg-white p-5 md:p-6 rounded-2xl shadow-xs border border-neutral-100 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-neutral-900" />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-4 animate-marquee-up" aria-hidden="true">
+                {[...toolIcons, ...toolIcons].map((Icon, i) => (
+                  <div key={`b3-${i}`} className="flex items-center justify-center bg-white p-5 md:p-6 rounded-2xl shadow-xs border border-neutral-100 aspect-square shrink-0">
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-neutral-900" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
-      </ScrollReveal>
+
+      </div>
     </section>
   );
 }

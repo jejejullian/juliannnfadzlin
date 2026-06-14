@@ -7,8 +7,6 @@ import animedesuwa from "../assets/image/project4.png";
 import blogapi from "../assets/image/project5.png";
 
 import profile1 from "../assets/image/profile1.jpeg";
-import profile2 from "../assets/image/profile2.jpeg";
-import profile3 from "../assets/image/profile3.jpeg";
 
 import bgHero from "../assets/image/background1.jpg";
 
@@ -28,7 +26,12 @@ export const heroData = {
   btnLink: "https://www.linkedin.com/in/juliannurfadzlin/",
 };
 
-export const techStackIcons = [SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass, SiJavascript, SiReact, SiPhp, SiXampp, SiMysql, SiGit, SiPostman, SiSupabase];
+export const techStackIcons = [
+  SiJavascript, SiReact,
+  SiNodedotjs, SiExpress, SiPostgresql, SiPrisma,
+  SiGit, SiPostman, SiVite,
+  SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass
+];
 
 export const projectsData = [
   {
@@ -83,7 +86,7 @@ export const projectsData = [
   },
 ];
 
-export const profileImages = [profile1, profile2, profile3];
+export const profileImages = [profile1];
 
 export const resumeData = {
   header: {

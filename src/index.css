@@ -40,6 +40,11 @@
   --color-surface-hover: rgba(255, 255, 255, 0.10);
 }
 
+/* Enable smooth scrolling for all anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
 
 /* Keyframes for sliding animation (left to right) */
 @keyframes slide-left {
@@ -53,7 +58,52 @@
 
 /* Utility class for infinite sliding animation */
 @utility animate-slide-left-infinite {
-  animation: slide-left 20s linear infinite;
+  animation: slide-left 25s linear infinite;
+}
+
+/* Keyframes for perfectly seamless vertical scrolling */
+@keyframes marquee-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% - 1rem)); /* 1rem is gap-4 */
+  }
+}
+
+@keyframes marquee-down {
+  0% {
+    transform: translateY(calc(-100% - 1rem));
+  }
+  100% {
+    transform: translateY(0); 
+  }
+}
+
+/* Utility classes for infinite vertical scrolling */
+@utility animate-marquee-up {
+  animation: marquee-up 25s linear infinite;
+}
+
+@utility animate-marquee-down {
+  animation: marquee-down 25s linear infinite;
+}
+
+/* ── Letter-by-letter stagger reveal ── */
+@keyframes letter-reveal {
+  from { transform: translateY(105%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Generic fade helpers (used by Hero floating elements) ── */
+@keyframes fade-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fade-slide-left {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 /* Utility class to pause the animation */

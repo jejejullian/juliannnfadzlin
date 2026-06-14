@@ -22,7 +22,7 @@ function App() {
       {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
       <div className="min-h-screen bg-light scroll-smooth">
         <Navbar />
-        <Hero />
+        <Hero isLoaded={!isLoading} />
         <About />
         <TechStack />
         <Projects />

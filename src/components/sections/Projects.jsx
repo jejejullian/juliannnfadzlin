@@ -108,11 +108,11 @@ export default function Projects() {
                       </p>
 
                       {/* Tech Stack Icons */}
-                      <div className="flex items-center gap-3 md:gap-4">
+                      <div className="flex flex-wrap items-center gap-2 md:gap-4 w-full">
                         {project.icons.map((Icon, iconIndex) => (
                           <div
                             key={iconIndex}
-                            className="p-2 md:p-2.5 rounded-xl transition-colors duration-300"
+                            className="p-1.5 md:p-2.5 rounded-[10px] md:rounded-xl transition-colors duration-300"
                             style={{
                               backgroundColor: isDark
                                 ? "rgba(255,255,255,0.06)"
@@ -120,7 +120,7 @@ export default function Projects() {
                             }}
                           >
                             <Icon
-                              className="w-5 h-5 md:w-6 md:h-6"
+                              className="w-[18px] h-[18px] md:w-6 md:h-6"
                               style={{ color: theme.iconColor }}
                             />
                           </div>
