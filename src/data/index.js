@@ -5,6 +5,7 @@ import yadika from "../assets/image/project2.png";
 import forecazt from "../assets/image/project3.png";
 import animedesuwa from "../assets/image/project4.png";
 import blogapi from "../assets/image/project5.png";
+import jobtrack from "../assets/image/project6.png";
 
 import profile1 from "../assets/image/profile1.jpeg";
 
@@ -59,7 +60,7 @@ export const projectsData = [
     title: "Forecazt",
     year: 2025,
     date: "2025-06",
-    desc: "weather app",
+    desc: "Weather App",
     icons: [SiJavascript, SiTailwindcss, SiVite],
     image: forecazt,
     link: "https://weatherapp-odin-project.vercel.app/",
@@ -84,6 +85,16 @@ export const projectsData = [
     image: blogapi,
     link: "https://github.com/jejejullian/blog-api",
   },
+  {
+    id: 6,
+    title: "JobTrack",
+    year: 2026,
+    date: "2026-06",
+    desc: "Job Application Tracker",
+    icons: [SiReact, SiVite, SiTailwindcss, SiNodedotjs, SiExpress, SiPrisma, SiPostgresql],
+    image: jobtrack,
+    link: "https://jobtracker.my.id",
+  },
 ];
 
 export const profileImages = [profile1];
@@ -91,39 +102,55 @@ export const profileImages = [profile1];
 export const resumeData = {
   header: {
     name: "Julian Nur Fadzlin",
-    role: "Front-end Developer",
+    role: "Web Developer",
     intro: "I design in code as a front-end developer.",
     subIntro: "I'm passionate about building interfaces that work—and feel—just right.",
   },
   experiences: [
     {
-      title: "Front-End Developer",
-      company: "PT. Niki Akurasi Persada",
-      period: "2023",
+      title: "Web Developer Intern",
+      company: "YADIKA Kalijati",
+      period: "Aug – Oct 2023",
       description: [
-        "Developed company profile website using HTML, Bootstrap, and Javascript",
-        "Collaborated with design team for responsive layouts",
-        "Performed iterative testing and debugging to enhance user experience and functionality",
+        "Built a web-based IT Asset Management platform that digitized 100% of ±50 hardware devices.",
+        "Conducted QA testing before deployment and provided end-user training to non-technical staff.",
       ],
     },
     {
-      title: "Web Developer Intern",
-      company: "Yadika Institution",
-      period: "2023",
-      description: ["Built inventory management system using PHP and JavaScript", "Implemented CRUD operations with MySQL database", "Created user-friendly interfaces with Bootstrap"],
+      title: "Freelance Web Developer",
+      company: "PT Niki Akurasi Persada",
+      period: "Jun – Jul 2023",
+      description: [
+        "Built a responsive company profile (mobile + desktop) using HTML, CSS, and Bootstrap — went live within 1 month from brief to deployment.",
+        "Handled full-cycle deployment (hosting, domain, server) and implemented On-Page SEO.",
+      ],
+    },
+    {
+      title: "Assembly Engine",
+      company: "PT Astra Honda Motor",
+      period: "Feb 2020 – Nov 2021",
+      description: [
+        "Achieved ±700 units/shift target with <0.5% defect rate and 100% attendance over 21 months.",
+      ],
     },
   ],
   education: [
     {
-      degree: "Bachelor of Computer Science",
-      school: "Mercubuana University",
-      period: "2021 - 2025",
-      gpa: "3.8/4.0",
+      degree: "Bachelor of Informatics Engineering",
+      school: "Universitas Mercu Buana",
+      period: "2021 – 2025",
+      gpa: "3.82 / 4.00",
     },
   ],
   skills: {
-    "Front-End": ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Bootstrap"],
-    "Back-End": ["PHP", "Node.js"],
-    Tools: ["Git", "Postman", "My-SQL", "VS Code"],
+    "Front-End": ["JavaScript (ES6+)", "React.js", "HTML5", "CSS3", "TypeScript (basic)", "PHP"],
+    "Styling & UI": ["Tailwind CSS", "Bootstrap", "Responsive Web Design"],
+    "Back-End & Database": ["Node.js", "Express.js", "Prisma ORM", "PostgreSQL", "Supabase", "REST API"],
+    "Tools": ["Git", "Vite", "Postman", "Vercel", "SEO On-Page"],
   },
+  certifications: [
+    { name: "React JS Basics", issuer: "Meta / Coursera", year: "2026" },
+    { name: "Javascript Basics", issuer: "Dicoding", year: "2023 – 2026" },
+    { name: "Software Engineer", issuer: "BNSP", year: "2024 – 2027" },
+  ],
 };
