@@ -3,10 +3,10 @@
 /* Custom Font: Define Nico-Moji font */
 @font-face {
   font-family: "nicomoji";
-  src: url("./assets/fonts/Nico-Moji.woff") format("woff");
+  src: url("/fonts/Nico-Moji.woff") format("woff");
   font-weight: normal;
   font-style: normal;
-  font-display: block; 
+  font-display: block;
 }
 
 /* ===== Design Tokens ===== */
