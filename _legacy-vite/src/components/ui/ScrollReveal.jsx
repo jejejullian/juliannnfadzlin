@@ -1,14 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-/**
- * ScrollReveal — A wrapper component that animates children into view
- * when they enter the viewport. Uses native IntersectionObserver (no packages needed).
- *
- * @param {string} direction - Animation direction: "up", "left", "right", "scale"
- * @param {number} delay - Delay in ms before animation starts
- * @param {string} className - Additional CSS classes
- * @param {string} as - HTML tag to render (default: "div")
- */
 export default function ScrollReveal({
   children,
   delay = 0,

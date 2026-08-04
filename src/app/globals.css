@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-@theme inline {
-  --font-sans: var(--font-nico-moji);
-}
-
 /* ===== Design Tokens ===== */
 @theme {
   --font-nico: var(--font-nico-moji);
@@ -20,6 +16,15 @@
 
   --spacing-page: 60px;
 }
+
+@utility max-h-500 {
+  max-height: 500px;
+}
+
+@utility max-w-1440 {
+  max-width: 1440px;
+}
+
 
 /* rgba overlays — harus di :root, bukan @theme (Tailwind v4 parse @theme sebagai RGB channel) */
 :root {
