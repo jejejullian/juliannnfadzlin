@@ -15,9 +15,9 @@
   --color-ghost: #262626;
 
   --spacing-page: 60px;
-
   --spacing-400: 400px;
   --spacing-500: 500px;
+  --spacing-520: 520px;
 }
 
 @utility max-h-500 {
