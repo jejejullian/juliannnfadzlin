@@ -1,7 +1,7 @@
-// GitHub Profile Config ───────────────────────────────────────────────────────
+// GitHub Profile Config 
 export const GITHUB_USERNAME = "jejejullian";
 
-// Stat Card Definitions ───────────────────────────────────────────────────────
+// Stat Card Definitions 
 export const STAT_CARD_DEFINITIONS = [
   { id: "repos", key: "repos", label: "Repositories" },
   { id: "commits", key: "totalContributions", label: "Contributions (yr)" },

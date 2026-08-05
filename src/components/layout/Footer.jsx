@@ -3,6 +3,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { SiInstagram, SiGithub } from "react-icons/si";
 import ScrollReveal from "../ui/ScrollReveal";
 
+
 export default function Footer() {
   const socialLinks = [
     {

@@ -1,11 +1,14 @@
-import Navbar from "@/app/components/layout/Navbar";
-import Footer from "@/app/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import About from "@/components/sections/About";
+import TechStack from "@/components/sections/TechStack";
 
 export default function Page() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <h1>Portofolio was making this time</h1>
+      <About />
+      <TechStack />
       <Footer />
     </div>
   );
