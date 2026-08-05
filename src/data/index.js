@@ -34,6 +34,13 @@ export const techStackIcons = [
   SiHtml5, SiCss, SiTailwindcss, SiBootstrap, SiSass
 ];
 
+export const cardThemes = [
+  { bg: "var(--color-dark)", text: "var(--color-light)", accent: "var(--color-muted)", iconColor: "var(--color-muted-light)" },
+  { bg: "var(--color-card-light)", text: "var(--color-dark)", accent: "var(--color-muted-dark)", iconColor: "var(--color-muted-dark)" },
+  { bg: "var(--color-dark)", text: "var(--color-light)", accent: "var(--color-muted)", iconColor: "var(--color-muted-light)" },
+  { bg: "var(--color-card-light)", text: "var(--color-dark)", accent: "var(--color-muted-dark)", iconColor: "var(--color-muted-dark)" },
+];
+
 export const projectsData = [
   {
     id: 1,
