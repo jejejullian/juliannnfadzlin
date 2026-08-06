@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { buildHeatmapData } from "../utils/heatmap";
 import { GITHUB_STATS_FALLBACK } from "../data/githubConfig";
 
-/**
- * useGithubData — Fetches real GitHub stats from the /api/github proxy.
- * Falls back to simulated data if the API is unavailable (local dev without token).
- *
- * @returns {{ data: object|null, loading: boolean, error: string|null }}
- */
+
 export function useGithubData() {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
