@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence } from "motion/react";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import Hero from "@/components/sections/Hero";
 
@@ -9,7 +10,9 @@ export default function LoadingWrapper() {
 
   return (
     <>
-      {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+      <AnimatePresence>
+        {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+      </AnimatePresence>
       <Hero isLoaded={!isLoading} />
     </>
   );

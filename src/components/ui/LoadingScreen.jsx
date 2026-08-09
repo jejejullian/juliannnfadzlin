@@ -1,66 +1,41 @@
+"use client";
+
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 
 export default function LoadingScreen({ onFinish }) {
   const [progress, setProgress] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           return 100;
         }
-        // Accelerate near the end
         const increment = prev < 60 ? 3 : prev < 85 ? 2 : 1;
         return Math.min(prev + increment, 100);
       });
     }, 30);
-
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     if (progress === 100) {
-      // Small delay before exit animation
-      const timeout = setTimeout(() => {
-        setIsExiting(true);
-      }, 400);
+      const timeout = setTimeout(onFinish, 400);
       return () => clearTimeout(timeout);
     }
-  }, [progress]);
-
-  useEffect(() => {
-    if (isExiting) {
-      // Wait for exit animation to complete, then unmount
-      const timeout = setTimeout(() => {
-        onFinish();
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [isExiting, onFinish]);
+  }, [progress, onFinish]);
 
   return (
-    <div
-      className="loading-screen"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "var(--color-dark)",
-        overflow: "hidden",
-      }}
+    <motion.div
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "var(--color-dark)" }}
     >
-      {/* Background subtle grid pattern */}
+      {/* Background grid pattern — statis, tidak animasi */}
       <div
+        className="absolute inset-0"
         style={{
-          position: "absolute",
-          inset: 0,
           opacity: 0.03,
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
@@ -68,54 +43,30 @@ export default function LoadingScreen({ onFinish }) {
         }}
       />
 
-      {/* Top curtain (slides up on exit) */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "50%",
-          backgroundColor: "var(--color-dark)",
-          zIndex: 2,
-          transform: isExiting ? "translateY(-100%)" : "translateY(0)",
-          transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
-        }}
+      {/* Top curtain */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-1/2 z-[2]"
+        style={{ backgroundColor: "var(--color-dark)" }}
+        exit={{ y: "-100%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       />
 
-      {/* Bottom curtain (slides down on exit) */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "50%",
-          backgroundColor: "var(--color-dark)",
-          zIndex: 2,
-          transform: isExiting ? "translateY(100%)" : "translateY(0)",
-          transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
-        }}
+      {/* Bottom curtain */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-1/2 z-[2]"
+        style={{ backgroundColor: "var(--color-dark)" }}
+        exit={{ y: "100%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       />
 
       {/* Center content */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 3,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "40px",
-          opacity: isExiting ? 0 : 1,
-          transform: isExiting ? "scale(0.9)" : "scale(1)",
-          transition:
-            "opacity 0.5s cubic-bezier(0.76, 0, 0.24, 1), transform 0.5s cubic-bezier(0.76, 0, 0.24, 1)",
-        }}
+      <motion.div
+        className="relative z-[3] flex flex-col items-center gap-10"
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
       >
         {/* Logo */}
         <div
-          className="loading-logo"
           style={{
             fontFamily: '"nicomoji", sans-serif',
             fontSize: "clamp(48px, 10vw, 80px)",
@@ -136,14 +87,13 @@ export default function LoadingScreen({ onFinish }) {
             letterSpacing: "6px",
             textTransform: "uppercase",
             fontWeight: 400,
-            animation:
-              "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both",
+            animation: "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both",
           }}
         >
           Portfolio
         </p>
 
-        {/* Progress bar container */}
+        {/* Progress bar */}
         <div
           style={{
             width: "clamp(180px, 40vw, 280px)",
@@ -151,11 +101,9 @@ export default function LoadingScreen({ onFinish }) {
             flexDirection: "column",
             alignItems: "center",
             gap: "16px",
-            animation:
-              "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both",
+            animation: "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both",
           }}
         >
-          {/* Track */}
           <div
             style={{
               width: "100%",
@@ -165,7 +113,6 @@ export default function LoadingScreen({ onFinish }) {
               overflow: "hidden",
             }}
           >
-            {/* Fill */}
             <div
               style={{
                 height: "100%",
@@ -177,7 +124,6 @@ export default function LoadingScreen({ onFinish }) {
             />
           </div>
 
-          {/* Percentage */}
           <span
             style={{
               color: "var(--color-muted-dark)",
@@ -189,46 +135,26 @@ export default function LoadingScreen({ onFinish }) {
             {String(progress).padStart(3, "0")}
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Corner decorations */}
-      <span
-        style={{
-          position: "absolute",
-          bottom: "30px",
-          left: "30px",
-          color: "var(--color-ghost)",
-          fontSize: "11px",
-          letterSpacing: "3px",
-          textTransform: "uppercase",
-          zIndex: 3,
-          opacity: isExiting ? 0 : 1,
-          transition: "opacity 0.4s ease",
-          animation:
-            "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both",
-        }}
+      <motion.span
+        className="absolute bottom-[30px] left-[30px] z-[3]"
+        style={{ color: "var(--color-ghost)", fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
       >
         © 2025
-      </span>
+      </motion.span>
 
-      <span
-        style={{
-          position: "absolute",
-          bottom: "30px",
-          right: "30px",
-          color: "var(--color-ghost)",
-          fontSize: "11px",
-          letterSpacing: "3px",
-          textTransform: "uppercase",
-          zIndex: 3,
-          opacity: isExiting ? 0 : 1,
-          transition: "opacity 0.4s ease",
-          animation:
-            "subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both",
-        }}
+      <motion.span
+        className="absolute bottom-[30px] right-[30px] z-[3]"
+        style={{ color: "var(--color-ghost)", fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
       >
         Front-End Developer
-      </span>
-    </div>
+      </motion.span>
+    </motion.div>
   );
 }
