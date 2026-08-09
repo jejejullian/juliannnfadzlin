@@ -29,15 +29,15 @@ export default function About() {
 
             {/* Big role typography */}
             <ScrollReveal delay={60}>
-              <div className="mb-2">
+              <div className="mb-2 ">
                 <p className="font-bold uppercase leading-[0.88] tracking-tight text-5xl md:text-6xl lg:text-7xl xl:text-[80px] text-neutral-900">Front-end</p>
-                <p className="font-bold uppercase leading-[0.88] tracking-tight text-5xl md:text-6xl lg:text-7xl xl:text-[80px] text-neutral-300">Developer.</p>
+                <p className="font-bold uppercase leading-[0.88] tracking-tight text-5xl md:text-6xl lg:text-7xl xl:text-[80px] text-neutral-300 text-left lg:text-center">Developer.</p>
               </div>
             </ScrollReveal>
 
             {/* Bio */}
             <ScrollReveal delay={120}>
-              <p className="text-sm md:text-lg text-neutral-600 leading-relaxed mb-2 max-w-md">
+              <p className="text-sm md:text-lg text-neutral-600 leading-relaxed mb-2 max-w-lg">
                 {resumeData.header.intro} <span className="font-semibold text-neutral-800">{resumeData.header.subIntro}</span>
               </p>
             </ScrollReveal>

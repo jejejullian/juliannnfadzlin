@@ -1,4 +1,4 @@
-import { heroData } from "../../data";
+import { heroData } from "@/data";
 import { HiChevronDown } from "react-icons/hi";
 import { FiArrowUpRight } from "react-icons/fi";
 
@@ -35,7 +35,7 @@ export default function Hero({ isLoaded = true }) {
     <section
       id="home"
       className="relative min-h-dvh flex flex-col overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${heroData.bgImage})` }}
+      style={{ backgroundImage: `url(${heroData.bgImage.src})` }}
     >
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/30 to-black/85" />
@@ -95,7 +95,7 @@ export default function Hero({ isLoaded = true }) {
             href={heroData.btnLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-5 md:px-7 py-2.5 rounded-full text-xs md:text-sm text-white border border-white/25 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/45 hover:gap-3"
+            className="group inline-flex items-center gap-2 px-5 md:px-7 py-2.5 rounded-full text-xs md:text-sm text-white border border-white/25 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/45"
           >
             {heroData.btnText}
             <FiArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
