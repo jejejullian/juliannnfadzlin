@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* ===== Design Tokens ===== */
+@theme {
+  --font-nico: var(--font-nico-moji);
+
+  --color-dark: #0a0a0a;
+  --color-light: #ededed;
+  --color-offwhite: #eeeeee;
+  --color-card-light: #f5f5f5;
+
+  --color-muted: #737373;
+  --color-muted-dark: #525252;
+  --color-muted-light: #a3a3a3;
+  --color-ghost: #262626;
+
+  --spacing-page: 60px;
+  --spacing-400: 400px;
+  --spacing-500: 500px;
+  --spacing-520: 520px;
+}
+
+@utility max-h-500 {
+  max-height: 500px;
+}
+@utility max-w-1440 {
+  max-width: 1440px;
+}
+
+/* rgba overlays — harus di :root, bukan @theme (Tailwind v4 parse @theme sebagai RGB channel) */
+:root {
+  --color-border-dark: rgba(237, 237, 237, 0.08);
+  --color-border-faint: rgba(237, 237, 237, 0.06);
+  --color-track: rgba(237, 237, 237, 0.1);
+  --color-surface-dim: rgba(255, 255, 255, 0.06);
+  --color-surface-hover: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== Semua @keyframes dan @utility di bawah ini copy 1:1 dari file lama ===== */
+
+@keyframes slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-slide-left-infinite {
+  animation: slide-left 25s linear infinite;
+}
+
+@keyframes marquee-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% - 1rem));
+  }
+}
+@keyframes marquee-down {
+  0% {
+    transform: translateY(calc(-100% - 1rem));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@utility animate-marquee-up {
+  animation: marquee-up 25s linear infinite;
+}
+@utility animate-marquee-down {
+  animation: marquee-down 25s linear infinite;
+}
+
+@keyframes letter-reveal {
+  from {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-slide-left {
+  from {
+    transform: translateX(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@utility animation-pause {
+  animation-play-state: paused;
+}
+
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes subtitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+@utility hero-reveal {
+  opacity: 0;
+  animation: hero-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+@utility animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.heatmap-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.heatmap-scroll::-webkit-scrollbar-track {
+  background: var(--color-border-faint);
+  border-radius: 99px;
+}
+.heatmap-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-muted-dark);
+  border-radius: 99px;
+}
+.heatmap-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+.heatmap-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-muted-dark) var(--color-border-faint);
+}

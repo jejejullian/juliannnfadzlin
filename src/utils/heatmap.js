@@ -1,4 +1,4 @@
-// ─── Heatmap Constants ──────────────────────────────────────────────────────────
+// Heatmap Constants 
 export const WEEKS = 53;
 export const DAYS  = 7;
 
@@ -9,14 +9,7 @@ export const MONTH_LABELS = [
 
 export const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// ─── Month Position Calculator ───────────────────────────────────────────────────
-/**
- * Returns an array of { label, week } for each month boundary in the heatmap.
- * Calculated dynamically from today's date so the labels always match the real data.
- *
- * @param {number} totalWeeks - Number of columns in the heatmap (default: WEEKS)
- * @returns {{ label: string, week: number }[]}
- */
+// Month Position Calculator 
 export function getMonthPositions(totalWeeks = WEEKS) {
   // The heatmap window starts 1 year ago, aligned to the previous Sunday
   const startDate = new Date();
@@ -43,11 +36,7 @@ export function getMonthPositions(totalWeeks = WEEKS) {
   return positions;
 }
 
-// ─── Data Generator (fallback for local dev without token) ───────────────────────
-/**
- * Build a WEEKS×DAYS grid of simulated contribution counts.
- * Weekdays are busier; occasional random bursts simulate active periods.
- */
+// Data Generator (fallback for local dev without token)
 export function buildHeatmapData() {
   const grid = [];
   for (let w = 0; w < WEEKS; w++) {
@@ -64,13 +53,7 @@ export function buildHeatmapData() {
   return grid;
 }
 
-// ─── Color Mapping ───────────────────────────────────────────────────────────────
-/**
- * Map a contribution count to a CSS background + border colour pair.
- *
- * @param {number} count
- * @returns {{ bg: string, border: string }}
- */
+// Color Mapping
 export function getColor(count) {
   if (count === 0) return { bg: "var(--color-surface-dim)",  border: "transparent"             };
   if (count <= 2)  return { bg: "rgba(100,180,100,0.30)",    border: "rgba(100,180,100,0.15)"  };

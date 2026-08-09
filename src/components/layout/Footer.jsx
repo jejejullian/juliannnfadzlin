@@ -3,6 +3,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { SiInstagram, SiGithub } from "react-icons/si";
 import ScrollReveal from "../ui/ScrollReveal";
 
+
 export default function Footer() {
   const socialLinks = [
     {
@@ -33,7 +34,7 @@ export default function Footer() {
       />
 
       <section id="contact" className="px-5 md:px-page py-10 md:py-16 lg:py-20 bg-dark text-offwhite overflow-hidden">
-        <div className="flex flex-col gap-10 md:gap-14 lg:gap-20 max-w-[1440px] mx-auto">
+        <div className="flex flex-col gap-10 md:gap-14 lg:gap-20 max-w-1440 mx-auto">
           {/* Section label */}
           <div>
             <ScrollReveal>
@@ -44,7 +45,7 @@ export default function Footer() {
 
             <ScrollReveal delay={100}>
               <h2 className="text-2xl md:text-5xl lg:text-7xl font-bold uppercase leading-tight">
-                Let's start something great
+                Let&apos;s start something great
               </h2>
             </ScrollReveal>
 
@@ -94,9 +95,7 @@ export default function Footer() {
               <p className="text-[10px] md:text-xs lg:text-sm text-neutral-600">
                 © 2025 Juliannn Fadzlin. All rights reserved.
               </p>
-              <p className="text-[10px] md:text-xs lg:text-sm text-neutral-600">
-                Designed & Built with ❤️
-              </p>
+              
             </div>
           </ScrollReveal>
         </div>

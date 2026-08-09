@@ -1,14 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
 
-/**
- * StatCard — Displays a single GitHub metric (repos, commits, etc.)
- *
- * @param {React.ElementType} icon    - React icon component
- * @param {string}            label   - Metric label
- * @param {number|string}     value   - Live value from API (or fallback)
- * @param {boolean}           loading - Whether data is still being fetched
- * @param {number}            delay   - ScrollReveal delay in ms
- */
 export default function StatCard({ icon: Icon, label, value, loading, delay }) {
   return (
     <ScrollReveal delay={delay} direction="up">

@@ -1,12 +1,3 @@
-/**
- * HeatmapTooltip — Fixed-position tooltip that follows the cursor
- * when hovering over a heatmap cell.
- *
- * @param {number}  count   - Contribution count for the hovered cell
- * @param {boolean} visible - Whether the tooltip is shown
- * @param {number}  x       - Cursor clientX position
- * @param {number}  y       - Cursor clientY position
- */
 export default function HeatmapTooltip({ count, visible, x, y }) {
   if (!visible) return null;
 

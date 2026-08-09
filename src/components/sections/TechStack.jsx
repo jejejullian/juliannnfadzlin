@@ -1,14 +1,8 @@
-import { techStackIcons } from "../../data";
-import ScrollReveal from "../ui/ScrollReveal";
+import { techStackIcons } from "@/data";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function TechStack() {
-  // Destructure exact icons from the array
-  const [
-    JsIcon, ReactIcon,
-    NodeIcon, ExpressIcon, PostgresIcon, PrismaIcon,
-    GitIcon, PostmanIcon, ViteIcon,
-    HtmlIcon, CssIcon, TailwindIcon, BootstrapIcon, SassIcon
-  ] = techStackIcons;
+  const [JsIcon, ReactIcon, NodeIcon, ExpressIcon, PostgresIcon, PrismaIcon, GitIcon, PostmanIcon, ViteIcon, HtmlIcon, CssIcon, TailwindIcon, BootstrapIcon, SassIcon] = techStackIcons;
 
   const frontendIcons = [HtmlIcon, CssIcon, JsIcon, ReactIcon, TailwindIcon, BootstrapIcon, SassIcon];
   const backendIcons = [NodeIcon, ExpressIcon, PostgresIcon, PrismaIcon];
@@ -17,27 +11,24 @@ export default function TechStack() {
   return (
     <section id="techstack" className="py-20 md:py-28 bg-white overflow-hidden">
       <div className="w-full px-5 md:px-page">
-
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-
           {/* Left Side: Heading */}
           <div className="lg:w-5/12 text-left">
             <ScrollReveal>
-              <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] mb-3 md:mb-4">
-                Tech Stack
-              </p>
+              <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-[6px] mb-3 md:mb-4">Tech Stack</p>
               <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold uppercase tracking-tight text-neutral-900 leading-none mb-6">
-                Tools &<span className="hidden lg:inline"><br /></span> Tech.
+                Tools &
+                <span className="hidden lg:inline">
+                  <br />
+                </span>{" "}
+                Tech.
               </h2>
-              <p className="text-base md:text-lg text-neutral-500 max-w-md mx-auto lg:mx-0">
-                A continuously evolving ecosystem of tools I use to build scalable, responsive, and dynamic user interfaces.
-              </p>
+              <p className="text-base md:text-lg text-neutral-500 max-w-md mx-auto lg:mx-0">A continuously evolving ecosystem of tools I use to build scalable, responsive, and dynamic user interfaces.</p>
             </ScrollReveal>
           </div>
 
           {/* Right Side: 3 Vertical Sliders */}
-          <div className="lg:w-7/12 w-full h-[400px] md:h-[500px] relative flex gap-4 md:gap-6 justify-center rounded-[32px]  p-6 shadow-inner overflow-hidden">
-
+          <div className="lg:w-7/12 w-full h-400 md:h-500 relative flex gap-4 md:gap-6 justify-center rounded-4xl p-6 shadow-inner overflow-hidden">
             {/* Fading gradients at top and bottom for smooth disappearing effect */}
             <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-neutral-50 to-transparent z-10 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-full h-24 bg-linear-to-t from-neutral-50 to-transparent z-10 pointer-events-none"></div>
@@ -95,10 +86,8 @@ export default function TechStack() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </section>
   );
